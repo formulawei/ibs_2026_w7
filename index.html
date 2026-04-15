@@ -1,0 +1,1812 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>IBS W7｜Corporate Diversification & Portfolio Strategy</title>
+<style>
+/* ════════════════════════════════════════════
+   NTU W7 palette — Corporate Diversification
+   ════════════════════════════════════════════ */
+:root{
+  --ntu:#002B5C; --ntu2:#01356F; --gold:#C9A227;
+  --paper:#F4F7FC; --ink:#0B1220; --muted:#475569;
+  --muted2:#64748B; --line:#D7DEE9; --card:#FFFFFF;
+  --shadow:0 10px 30px rgba(2,6,23,.10);
+  --radius:16px; --radius2:20px;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --s0:#1A6B4A; --t1:#7B2F00; --t2:#1A4A8B;
+  --t3:#5B21B6; --c1:#0E7490; --s1:#065F46;
+}
+*{box-sizing:border-box;}
+html,body{height:100%;margin:0;}
+body{font-family:var(--sans);font-size:16px;color:var(--ink);
+  background:radial-gradient(1200px 600px at 8% 0%,rgba(0,43,92,.07),transparent 55%),
+             radial-gradient(900px 500px at 96% 4%,rgba(201,162,39,.10),transparent 55%),
+             var(--paper);}
+
+/* ── Topbar ── */
+.topbar{display:flex;align-items:center;justify-content:space-between;
+  padding:13px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;
+  background:rgba(244,247,252,.94);backdrop-filter:blur(10px);z-index:20;}
+.brand{display:flex;gap:12px;align-items:center;min-width:0;}
+.logo{width:50px;height:50px;display:grid;place-items:center;border-radius:14px;
+  background:linear-gradient(135deg,var(--ntu),var(--ntu2));color:#fff;
+  font-weight:900;letter-spacing:.08em;box-shadow:0 8px 22px rgba(0,43,92,.28);font-size:13px;}
+.brandText{min-width:0;}
+.course{font-size:11px;color:var(--muted);letter-spacing:.03em;}
+.topic{font-size:17px;font-weight:900;color:var(--ntu);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.btn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 14px;
+  font-weight:700;cursor:pointer;transition:.12s ease;font-size:13px;color:var(--ink);}
+.btn:hover{border-color:rgba(0,43,92,.35);box-shadow:0 6px 16px rgba(0,0,0,.08);}
+.btn:active{transform:translateY(1px);}
+.btn.gold{border-color:rgba(201,162,39,.45);background:rgba(201,162,39,.12);color:#5A4600;}
+
+/* ── Layout ── */
+.layout{display:grid;grid-template-columns:288px 1fr;gap:18px;padding:18px;
+  max-width:1480px;margin:0 auto;}
+
+/* ── Sidebar ── */
+.sidebar{position:sticky;top:86px;align-self:start;
+  border:1px solid var(--line);border-radius:var(--radius2);
+  background:rgba(255,255,255,.78);backdrop-filter:blur(8px);
+  box-shadow:var(--shadow);padding:14px;
+  max-height:calc(100vh - 104px);overflow-y:auto;}
+.navTitle{font-size:10px;color:var(--muted);letter-spacing:.14em;
+  text-transform:uppercase;margin-bottom:10px;padding:0 4px;}
+.navItem{width:100%;text-align:left;padding:9px 11px;border-radius:11px;
+  border:1px solid transparent;background:transparent;cursor:pointer;
+  font-weight:700;font-size:13px;color:var(--ntu2);display:block;
+  transition:.1s ease;margin-bottom:2px;line-height:1.35;}
+.navItem:hover{background:rgba(0,43,92,.06);}
+.navItem.active{background:rgba(0,43,92,.10);border-color:rgba(0,43,92,.18);}
+.navItem.seg-s0.active{background:rgba(26,107,74,.10);border-color:rgba(26,107,74,.25);color:var(--s0);}
+.navItem.seg-t1.active{background:rgba(123,47,0,.10);border-color:rgba(123,47,0,.25);color:var(--t1);}
+.navItem.seg-t2.active{background:rgba(26,74,139,.10);border-color:rgba(26,74,139,.25);color:var(--t2);}
+.navItem.seg-t3.active{background:rgba(91,33,182,.10);border-color:rgba(91,33,182,.25);color:var(--t3);}
+.navItem.seg-c1.active{background:rgba(14,116,144,.10);border-color:rgba(14,116,144,.25);color:var(--c1);}
+.navItem.seg-s1.active{background:rgba(6,95,70,.10);border-color:rgba(6,95,70,.25);color:var(--s1);}
+.navFooter{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);}
+.hint{font-size:11px;color:var(--muted);line-height:1.5;}
+.kbd{font-family:var(--mono);font-weight:900;padding:2px 6px;
+  border:1px solid var(--line);border-radius:7px;background:#fff;
+  color:var(--muted);font-size:10px;}
+
+/* ── Content ── */
+.content{border:1px solid var(--line);border-radius:var(--radius2);
+  background:rgba(255,255,255,.88);backdrop-filter:blur(8px);
+  box-shadow:var(--shadow);padding:24px;min-height:calc(100vh - 160px);}
+.sectionHead{display:flex;align-items:flex-start;justify-content:space-between;
+  gap:14px;margin-bottom:20px;}
+.h1{font-size:27px;font-weight:900;color:var(--ntu);margin:0;line-height:1.18;}
+.sub{margin:6px 0 0;color:var(--muted);line-height:1.5;font-size:15px;}
+.tag{display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(0,43,92,.25);background:rgba(0,43,92,.08);
+  color:var(--ntu);padding:8px 14px;border-radius:999px;
+  font-weight:800;white-space:nowrap;font-size:13px;}
+
+/* time tracker */
+.timeTracker{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px;}
+.timePill{font-size:11px;font-weight:800;padding:5px 10px;border-radius:999px;
+  border:1px solid var(--line);background:#fff;color:var(--muted);}
+.timePill.s0{background:var(--s0);color:#fff;border-color:var(--s0);}
+.timePill.t1{background:var(--t1);color:#fff;border-color:var(--t1);}
+.timePill.t2{background:var(--t2);color:#fff;border-color:var(--t2);}
+.timePill.t3{background:var(--t3);color:#fff;border-color:var(--t3);}
+.timePill.c1{background:var(--c1);color:#fff;border-color:var(--c1);}
+.timePill.s1{background:var(--s1);color:#fff;border-color:var(--s1);}
+.timePill.cur{opacity:1!important;}
+
+/* ── Cards / Grid ── */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.card{border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--card);padding:16px;box-shadow:0 6px 18px rgba(0,0,0,.06);}
+.cardTitle{font-weight:900;color:var(--ntu);margin:0 0 10px;font-size:15px;}
+.p{margin:0;color:var(--ink);line-height:1.65;font-size:15px;}
+.ul{margin:8px 0 0 20px;color:var(--ink);line-height:1.65;font-size:15px;}
+.ul li{margin-bottom:5px;}
+.sm{font-size:13px;color:var(--muted);}
+hr.sep{border:0;border-top:1px solid var(--line);margin:14px 0;}
+
+/* ── Callout ── */
+.callout{border-left:5px solid var(--ntu);padding:12px 14px;
+  background:rgba(0,43,92,.05);border-radius:12px;margin:10px 0;line-height:1.6;}
+.callout.gold{border-color:var(--gold);background:rgba(201,162,39,.08);}
+.callout.green{border-color:#15803d;background:rgba(21,128,61,.06);}
+.callout.purple{border-color:#7C3AED;background:rgba(124,58,237,.06);}
+.callout.red{border-color:#DC2626;background:rgba(220,38,38,.05);}
+.callout.orange{border-color:var(--t3);background:rgba(91,33,182,.06);}
+.callout.teal{border-color:#0E7490;background:rgba(14,116,144,.06);}
+.callout strong{color:var(--ntu);}
+.callout.gold strong{color:#7C5500;}
+.callout.green strong{color:#14532D;}
+.callout.purple strong{color:#5B21B6;}
+.callout.red strong{color:#991B1B;}
+.callout.orange strong{color:#4C1D95;}
+.callout.teal strong{color:#164E63;}
+
+/* ── Pill row ── */
+.pillRow{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0;}
+.pill{border:1px solid var(--line);background:#fff;border-radius:999px;
+  padding:6px 11px;font-weight:700;font-size:13px;
+  display:flex;align-items:center;gap:6px;color:var(--ink);}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+.dot.b{background:var(--ntu);}
+.dot.g{background:#15803d;}
+.dot.p{background:#7C3AED;}
+.dot.r{background:#DC2626;}
+.dot.o{background:var(--t3);}
+.dot.t{background:#0E7490;}
+
+/* ── Poll / Quiz ── */
+.qBox{border:1.5px dashed rgba(0,43,92,.28);background:rgba(0,43,92,.03);
+  border-radius:14px;padding:14px;}
+.qTitle{font-weight:900;margin:0 0 10px;color:var(--ntu);font-size:15px;}
+.options{display:grid;gap:8px;}
+.opt{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;
+  cursor:pointer;font-weight:700;text-align:left;transition:.1s ease;
+  font-size:14px;color:var(--ink);}
+.opt:hover{border-color:rgba(0,43,92,.35);box-shadow:0 6px 16px rgba(0,0,0,.07);}
+.opt.chosen{border-color:rgba(0,43,92,.50);background:rgba(0,43,92,.06);}
+.opt.correct{border-color:#15803d;background:rgba(21,128,61,.09);color:#14532d;}
+.opt.wrong{border-color:#DC2626;background:rgba(220,38,38,.07);color:#7f1d1d;}
+.opt[disabled]{cursor:default;}
+.barWrap{display:flex;align-items:center;gap:8px;margin-top:8px;}
+.bar{height:11px;border-radius:999px;background:rgba(0,0,0,.06);
+  overflow:hidden;flex:1;border:1px solid var(--line);}
+.fill{height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--ntu));
+  transition:width .4s ease;}
+.smallVote{color:var(--muted);font-size:12px;font-family:var(--mono);}
+
+/* ── Sliders ── */
+.sliderRow{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:10px 0;}
+input[type=range]{width:min(340px,100%);accent-color:var(--ntu);cursor:pointer;}
+.valBadge{font-family:var(--mono);font-weight:800;padding:5px 10px;
+  border:1px solid var(--line);border-radius:10px;background:#fff;
+  font-size:14px;color:var(--ntu);}
+
+/* ── Game containers ── */
+.gameBox{border:2px solid var(--line);border-radius:var(--radius);
+  padding:20px;background:var(--card);box-shadow:var(--shadow);margin:14px 0;}
+.gameTitle{font-weight:900;font-size:15px;color:var(--ntu);margin-bottom:6px;
+  display:flex;align-items:center;gap:8px;}
+.gameTag{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 10px;border-radius:999px;background:rgba(0,43,92,.1);color:var(--ntu);}
+.gameInstr{font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.55;}
+.gameReveal{border-left:4px solid var(--gold);background:rgba(201,162,39,.06);
+  border-radius:0 10px 10px 0;padding:12px 14px;font-size:13px;line-height:1.6;
+  display:none;margin-top:12px;}
+.gameReveal.visible{display:block;animation:fadeSlide .35s ease;}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.gameBtnRow{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+.gameBtn{border:1.5px solid var(--line);background:#fff;border-radius:999px;
+  padding:8px 16px;font-weight:700;cursor:pointer;transition:.12s;font-size:13px;}
+.gameBtn:hover{border-color:var(--ntu);color:var(--ntu);}
+.gameBtn.primary{background:var(--ntu);color:#fff;border-color:var(--ntu);}
+.gameBtn.primary:hover{background:#01356F;}
+.gameBtn.success{background:#14532D;color:#fff;border-color:#14532D;}
+
+/* ── Classify drag-drop ── */
+.classifyRow{display:flex;gap:14px;flex-wrap:wrap;}
+.classifyCol{flex:1;min-width:180px;border:2px dashed var(--line);
+  border-radius:14px;padding:12px;min-height:120px;transition:.15s;}
+.classifyCol.over{border-color:var(--ntu);background:rgba(0,43,92,.04);}
+.classifyColTitle{font-weight:900;font-size:13px;text-align:center;
+  margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line);}
+.classifyChip{border:1.5px solid var(--line);background:#fff;border-radius:10px;
+  padding:8px 10px;cursor:grab;font-weight:700;font-size:12px;
+  color:var(--ink);user-select:none;transition:.1s ease;
+  margin-bottom:6px;line-height:1.4;}
+.classifyChip:hover{border-color:rgba(0,43,92,.40);}
+.classifyChip.correct-chip{border-color:#15803d;background:rgba(21,128,61,.09);}
+.classifyChip.wrong-chip{border-color:#DC2626;background:rgba(220,38,38,.06);}
+.classifyBank{display:flex;gap:8px;flex-wrap:wrap;min-height:50px;
+  padding:10px;border:2px dashed rgba(0,43,92,.18);border-radius:12px;
+  background:rgba(0,43,92,.02);margin-bottom:10px;}
+
+/* ── Strategy Continuum Slider ── */
+.continuumWrap{position:relative;margin:18px 0;}
+.continuumBar{height:20px;border-radius:10px;width:100%;
+  background:linear-gradient(90deg,#7C3AED,#1A4A8B,#C9A227,#15803d);
+  position:relative;}
+.continuumLabels{display:flex;justify-content:space-between;font-size:11px;
+  font-weight:800;color:var(--muted);margin-top:4px;letter-spacing:.03em;}
+.continuumMarker{position:absolute;top:-8px;width:36px;height:36px;border-radius:50%;
+  background:var(--gold);border:3px solid var(--ntu);
+  transform:translateX(-50%);box-shadow:0 4px 12px rgba(0,43,92,.30);
+  cursor:ew-resize;z-index:5;display:grid;place-items:center;
+  font-size:10px;font-weight:900;color:var(--ntu);transition:.2s ease;}
+.continuumTick{position:absolute;top:0;width:2px;height:20px;background:rgba(255,255,255,.4);}
+.continuumExamples{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:8px;}
+.contEx{font-size:11px;font-weight:700;text-align:center;padding:4px;
+  border-radius:8px;border:1px solid var(--line);background:#fff;
+  color:var(--muted);transition:.15s;}
+.contEx.highlighted{border-color:var(--gold);background:rgba(201,162,39,.10);color:#5A3A00;}
+
+/* ── M-P Shape Picker ── */
+.mpShapes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0;}
+.mpShape{border:2px solid var(--line);border-radius:14px;padding:14px;
+  cursor:pointer;text-align:center;transition:.15s;background:#fff;}
+.mpShape:hover{border-color:rgba(0,43,92,.35);}
+.mpShape.chosen{border-color:var(--ntu);background:rgba(0,43,92,.05);}
+.mpShape svg{display:block;margin:0 auto 8px;}
+.mpShapeLabel{font-weight:800;font-size:12px;color:var(--ink);}
+
+/* ── Risk Matrix 2x2 ── */
+.riskMatrix{display:grid;grid-template-columns:1fr 1fr;gap:2px;
+  border:2px solid var(--line);border-radius:12px;overflow:hidden;
+  max-width:480px;margin:14px auto;}
+.riskCell{padding:14px;min-height:110px;display:flex;flex-direction:column;
+  justify-content:flex-start;font-size:12px;font-weight:700;line-height:1.45;
+  cursor:pointer;transition:.15s;position:relative;}
+.riskCell:hover{opacity:.85;}
+.riskCell.active{outline:3px solid var(--ntu);outline-offset:-3px;}
+.riskCellIcon{font-size:22px;margin-bottom:6px;}
+.riskAxisX{display:flex;justify-content:space-between;font-size:11px;font-weight:700;
+  color:var(--muted);padding:4px 0;max-width:480px;margin:0 auto;}
+.riskAxisY{writing-mode:vertical-rl;transform:rotate(180deg);font-size:11px;
+  font-weight:700;color:var(--muted);display:flex;align-items:center;justify-content:center;
+  padding:6px 2px;letter-spacing:0.05em;}
+.riskWrap{display:flex;gap:6px;align-items:stretch;max-width:540px;margin:0 auto;}
+.riskTsukuda{position:absolute;bottom:6px;right:6px;width:22px;height:22px;border-radius:50%;
+  background:var(--gold);border:3px solid var(--ntu);font-size:9px;font-weight:900;
+  display:grid;place-items:center;color:var(--ntu);}
+
+/* ── Memo Scaffold ── */
+.memoScaffold{display:flex;flex-direction:column;gap:14px;margin:10px 0;}
+.memoLayer{border-left:4px solid var(--line);padding:12px 14px;border-radius:0 10px 10px 0;
+  background:rgba(244,247,252,.5);transition:.15s;}
+.memoLayer:focus-within{background:#fff;}
+.memoLayerLabel{font-weight:900;font-size:13px;margin-bottom:4px;}
+.memoPrompt{font-size:12px;color:var(--muted);margin-bottom:8px;line-height:1.5;}
+.memoField{width:100%;border:1.5px dashed var(--line);border-radius:8px;padding:10px 12px;
+  font-size:13px;font-family:var(--sans);resize:vertical;min-height:80px;
+  background:transparent;color:var(--ink);transition:.15s;}
+.memoField:focus{outline:none;border-color:var(--t3);border-style:solid;background:#fff;}
+.memoField.has-content{border-style:solid;border-color:var(--gold);}
+.memoWordCount{font-size:11px;color:var(--muted);text-align:right;margin-top:3px;}
+
+/* ── Scenario Flipper ── */
+.sceneFlipper{border:1.5px solid var(--line);border-radius:16px;overflow:hidden;margin:14px 0;}
+.sceneNav{display:flex;border-bottom:1px solid var(--line);}
+.sceneTab{flex:1;padding:10px 6px;font-weight:800;font-size:12px;cursor:pointer;
+  text-align:center;color:var(--muted);transition:.1s ease;border-right:1px solid var(--line);}
+.sceneTab:last-child{border-right:none;}
+.sceneTab.active{background:var(--ntu);color:#fff;}
+.sceneTab:hover:not(.active){background:rgba(0,43,92,.06);}
+.sceneBody{padding:18px;}
+
+/* ── Worksheet styles ── */
+.wsCard{border:1px solid var(--line);border-radius:14px;padding:16px;
+  margin-bottom:14px;background:#fff;}
+.wsLabel{font-weight:900;color:var(--ntu);font-size:14px;margin-bottom:10px;}
+.wsTextarea{width:100%;min-height:120px;border:1.5px solid var(--line);
+  border-radius:12px;padding:12px;font-family:var(--sans);font-size:14px;
+  line-height:1.6;resize:vertical;outline:none;color:var(--ink);}
+.wsTextarea:focus{border-color:rgba(0,43,92,.50);}
+
+/* ── Toast ── */
+#toast{position:fixed;bottom:24px;right:24px;background:var(--ntu);color:#fff;
+  padding:10px 18px;border-radius:999px;font-weight:700;font-size:13px;
+  opacity:0;transform:translateY(8px);transition:.2s ease;pointer-events:none;z-index:99;}
+#toast.show{opacity:1;transform:translateY(0);}
+
+/* ── Presenter mode ── */
+.presenter .sidebar{display:none;}
+.presenter .layout{grid-template-columns:1fr;}
+.presenter .h1{font-size:32px;}
+.presenter .p,.presenter .ul{font-size:17px;}
+.presenter .card{padding:20px;}
+
+/* Responsive */
+@media(max-width:880px){
+  .layout{grid-template-columns:1fr;}
+  .sidebar{position:static;max-height:none;}
+  .grid2{grid-template-columns:1fr;}
+  .grid3{grid-template-columns:1fr 1fr;}
+  .mpShapes{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- Topbar -->
+<div class="topbar">
+  <div class="brand">
+    <div class="logo">NTU<br>IBS</div>
+    <div class="brandText">
+      <div class="course">IBS 2026 · International Business Strategy</div>
+      <div class="topic">W7 · Corporate Diversification &amp; Portfolio Strategy</div>
+    </div>
+  </div>
+  <div class="controls">
+    <button class="btn" id="btnLang">EN / 中</button>
+    <button class="btn gold" id="btnStudent">📝 Worksheet</button>
+    <button class="btn" id="btnPresenter">投影模式</button>
+    <button class="btn" id="btnReset">↺ Reset</button>
+    <button class="btn" id="btnHelp">?</button>
+  </div>
+</div>
+
+<div class="layout">
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="navTitle">W7 Segments</div>
+    <button class="navItem seg-s0" data-view="s0">🌾 S0 · 開場 · 8 min</button>
+    <button class="navItem seg-t1" data-view="t1">📦 T1 · Wiersema: 多角化類型 · 18 min <span style="font-size:9px;color:var(--gold);">🎮</span></button>
+    <button class="navItem seg-t2" data-view="t2">🗺️ T2 · Anand &amp; Collis: 策略光譜 · 17 min <span style="font-size:9px;color:var(--gold);">🎮</span></button>
+    <button class="navItem seg-t3" data-view="t3">🌐 T3 · Pedersen + Belderbos: M-P關係 · 14 min <span style="font-size:9px;color:var(--gold);">🎮</span></button>
+    <button class="navItem seg-c1" data-view="c1">📺 C1 · 劇情分析 S2 Ep1-3 · 15 min <span style="font-size:9px;color:var(--gold);">🎮</span></button>
+    <button class="navItem seg-s1" data-view="s1">📝 S1 · 策略備忘錄 · 10 min <span style="font-size:9px;color:var(--gold);">🎮</span></button>
+    <hr class="sep"/>
+    <button class="navItem" data-view="student">📋 Student Worksheet</button>
+    <div class="navFooter">
+      <div class="hint">⬅ ➡ 切換段落<br/><span class="kbd">L</span> 語言 <span class="kbd">P</span> 投影 <span class="kbd">R</span> 重置</div>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <main class="content" id="content"></main>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const STORE = "ibs_w7_2026_v1";
+const VIEW_ORDER = ["s0","t1","t2","t3","c1","s1","student"];
+
+const DEF = {
+  lang:"zh", presenter:false, view:"s0",
+  polls:{}, quizDone:{}, sliders:{},
+  classifyDone:{}, continuumPos:30,
+  mpChoice:null, riskCell:null,
+  sceneTabs:{c1:0},
+  ws:{}
+};
+let ST = load();
+
+const content = document.getElementById("content");
+const toast   = document.getElementById("toast");
+
+function load(){ try{const s=localStorage.getItem(STORE);return s?{...DEF,...JSON.parse(s)}:{...DEF};}catch(e){return{...DEF};} }
+function save(){ try{localStorage.setItem(STORE,JSON.stringify(ST));}catch(e){} }
+function showToast(m){toast.textContent=m;toast.classList.add("show");clearTimeout(toast._t);toast._t=setTimeout(()=>toast.classList.remove("show"),2200);}
+
+// ═══ POLL helpers ═══
+function getPoll(k){return ST.polls[k]||{a:0,b:0,c:0,d:0,e:0,choice:null};}
+function vote(k,ch){const p=getPoll(k);if(p.choice)p[p.choice]=Math.max(0,(p[p.choice]||0)-1);p.choice=ch;p[ch]=(p[ch]||0)+1;ST.polls[k]=p;save();}
+function tot(p){return(p.a||0)+(p.b||0)+(p.c||0)+(p.d||0)+(p.e||0);}
+function pct(p,k){const t=tot(p);return t?Math.round((p[k]||0)/t*100):0;}
+
+function pollCard({key,title,title_en,opts,followup,followup_en}){
+  const p=getPoll(key); const t=tot(p); const zh=ST.lang==="zh";
+  const ttl=zh?title:title_en;
+  const fup=zh?followup:followup_en;
+  return `<div class="qBox">
+    <p class="qTitle">📊 ${ttl}</p>
+    <div class="options">
+      ${opts.map(([k,lz,le])=>`<button class="opt${p.choice===k?' chosen':''}" data-poll="${key}" data-opt="${k}">${k.toUpperCase()}. ${zh?lz:le}</button>`).join("")}
+    </div>
+    ${t>0?`<div style="margin-top:10px;display:grid;gap:4px;">
+      ${opts.map(([k,lz,le])=>`<div style="display:flex;align-items:center;gap:6px;">
+        <span style="width:30px;font-weight:900;font-family:var(--mono);font-size:12px;">${pct(p,k)}%</span>
+        <div class="bar"><div class="fill" style="width:${pct(p,k)}%"></div></div>
+        <span style="font-size:12px;color:var(--muted)">${k.toUpperCase()}. ${zh?lz:le}</span>
+      </div>`).join("")}
+      <div class="barWrap"><span class="smallVote">${t} 票 / votes</span></div>
+    </div>`:`<div class="barWrap"><div class="bar"><div class="fill" style="width:0%"></div></div><span class="smallVote">${t} 票</span></div>`}
+    ${fup&&fup.length?`<hr class="sep"/><p class="sm" style="font-weight:800;margin-bottom:6px;">💬 ${zh?"討論追問":"Discussion prompts"}</p>
+    <ul class="ul" style="font-size:13px;margin-top:0;color:var(--muted);">${fup.map(q=>`<li>${q}</li>`).join("")}</ul>`:``}
+  </div>`;
+}
+
+function quizCard({key,q,q_en,opts,ans,exp,exp_en}){
+  const zh=ST.lang==="zh"; const done=ST.quizDone[key];
+  return `<div class="qBox">
+    <p class="qTitle">🧠 ${zh?q:q_en}</p>
+    <div class="options">
+      ${opts.map(([lz,le],i)=>`<button class="opt${done===i+1?(i===ans?' correct':' wrong'):''}" data-quiz="${key}" data-idx="${i}" ${done?'disabled':''}>
+        ${String.fromCharCode(65+i)}. ${zh?lz:le}
+      </button>`).join("")}
+    </div>
+    ${done?`<div class="callout ${done-1===ans?'green':'red'}" style="margin-top:10px;">
+      <p class="p" style="font-size:13px;">${done-1===ans?"✅":"❌"} ${zh?exp:exp_en}</p>
+    </div>`:`<div class="barWrap"><div class="bar"><div class="fill" style="width:0%"></div></div><span class="smallVote">${zh?"選一個選項":"Pick an option"}</span></div>`}
+  </div>`;
+}
+
+function timeTags(cur){
+  const zh=ST.lang==="zh";
+  const segs=[
+    ["s0",zh?"🌾 S0 開場":"🌾 S0 Intro","8min"],
+    ["t1",zh?"📦 T1 Wiersema":"📦 T1 Wiersema","18min"],
+    ["t2",zh?"🗺️ T2 Anand&Collis":"🗺️ T2 Anand&Collis","17min"],
+    ["t3",zh?"🌐 T3 Pedersen":"🌐 T3 Pedersen","14min"],
+    ["c1",zh?"📺 C1 劇情":"📺 C1 Drama","15min"],
+    ["s1",zh?"📝 S1 Memo":"📝 S1 Memo","10min"],
+  ];
+  return `<div class="timeTracker">${segs.map(([k,l,t])=>`<span class="timePill ${k} ${k===cur?'cur':''}" style="${k===cur?'':'opacity:.5'}">${l} ${t}</span>`).join("")}</div>`;
+}
+
+// ════════════════════════════════════════════
+//  SECTION S0 — Opening
+// ════════════════════════════════════════════
+function viewS0(){
+  const zh=ST.lang==="zh";
+  return `
+  <div class="sectionHead">
+    <div>
+      <h1 class="h1">${zh?"開場：核心事業受壓、農地情境、傳動系統與 GEAR GHOST":"Kickoff: Core Business Under Pressure, Farm Encounter, Transmissions & GearGhost"}</h1>
+      <p class="sub">${zh?"下町火箭 S2 Ep1-3（鬼魂篇）：在既有事業承壓下，傳動系統、GEAR GHOST、專利危機與「相關」多角化的治理風險（8 min）":"Shitamachi Rocket S2 Ep1-3 (Ghost Arc): Business under pressure — transmissions, GearGhost, patent crisis, and when related diversification becomes a governance risk (8 min)"}</p>
+    </div>
+    <div class="tag">🌾 S0 · 8 min</div>
+  </div>
+  ${timeTags("s0")}
+
+  <!-- Drama quick-reference banner -->
+  <div class="callout" style="background:rgba(0,43,92,.04);border-color:var(--ntu);border-radius:14px;padding:14px 16px;margin-bottom:14px;">
+    <div style="font-weight:900;font-size:13px;color:var(--ntu);margin-bottom:8px;">📺 ${zh?"鬼魂篇（Ghost Arc）Ep1-3 快速劇情索引——三個策略關鍵時刻":"Ghost Arc Ep1-3 Quick Drama Index — Three Strategic Turning Points"}</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:12px;">
+      ${[
+        ["#7B2F00","rgba(123,47,0,.06)","Ep1",zh?"雙重壓力 + 田間發現":"Dual Pressure + Farm Discovery",zh?"火箭業務不確定 + 重田搶客戶 → 殿村農地 → 傳動閥門問題 → 接觸 Gear Ghost":"Rocket uncertainty + Shigeta poaches clients → Tonomura's farm → transmission valve problem → approach GearGhost"],
+        ["#1A4A8B","rgba(26,74,139,.06)","Ep2",zh?"專利危機 + 收購決定":"Patent Crisis + Acquisition Decision",zh?"凱馬機械提訴（15 億）→ 交互授權失敗 → 佃決定收購 Gear Ghost":"Ke-Machinery suit (¥15B) → cross-license fails → Tsukuda decides to acquire GearGhost"],
+        ["#065F46","rgba(6,95,70,.06)","Ep3",zh?"消息外流 + 信用審查 + 內通者警報":"Leak + Credit Check + Informant Warning",zh?"收購消息外流 → 帝國重工信用審查 → 殿村緊急救場 → 律師警告有內通者":"Acquisition leaks → Teikoku credit investigation → Tonomura's last-minute save → lawyer warns of informant"]
+      ].map(([col,bg,ep,t,d])=>`<div style="border-left:3px solid ${col};background:${bg};border-radius:0 10px 10px 0;padding:8px 10px;">
+        <div style="font-weight:900;font-size:11px;color:${col};margin-bottom:2px;">${ep} · ${t}</div>
+        <div style="font-size:10.5px;color:var(--muted);line-height:1.45;">${d}</div>
+      </div>`).join("")}
+    </div>
+    <div style="font-size:11px;color:var(--muted);margin-top:8px;font-style:italic;">${zh?"注意：鬼魂篇 Ep1-3 的核心策略問題是「合作還是收購 Gear Ghost？」，不是「要不要全面進入無人農機市場」。後者是第 6-11 集（八咫烏篇（Yatagarasu Arc））的主題。":"Note: The core strategic question in Ghost Arc Ep1-3 is 'cooperate or acquire GearGhost?' — NOT 'should we enter the autonomous farm machinery market?' The latter is the theme of episodes 6-11 (Yatagarasu Arc)."}</div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3 class="cardTitle">${zh?"S2 Ep1-3 情境設定":"S2 Ep1-3 Situation Setup"}</h3>
+      <div class="callout gold">
+        <p class="p"><strong>${zh?"新篇章開場——":"New arc opens —"}</strong><br/>
+        ${zh?`S1 結束後，佃製作所靠著高迪（Gaudi）閥門技術重建了信譽。然而 S2 開篇，三重壓力同步來襲：<br/><br/>
+        ① <strong>帝國重工火箭計畫前景不明</strong>，佃製作所可能失去「火箭品質」招牌；同時競爭對手<strong>重田登志行</strong>（高喊「車子能動就夠」的引擎商）介入，原本採購佃製作所引擎的客戶轉向更便宜的替代品。<br/>
+        ② 財務主管<strong>殿村直弘</strong>因父親病倒，緊急返回新潟老家。佃航平與山崎光彥前往探望——在殿村家農地，航平親眼看見拖拉機作業不均，深入研究後發現問題根源在於<strong>傳動系統的閥門</strong>，恰是佃製作所的核心專長。<br/>
+        ③ 帶著這個技術洞察，航平主動接觸新創企業 <strong>GEAR GHOST</strong>——由前帝國重工工程師<strong>伊丹大</strong>與技術核心<strong>島津裕</strong>共同創辦，以整合最優秀的研發成果打造農機傳動系統（類似蘋果的做法），充滿技術理想卻也面臨現實考驗。<br/><br/>
+        <strong>核心戰略困境：</strong>農機傳動系統對佃製作所是「相關」還是「非相關」多角化？如何在保留成長選擇權的同時，控制與 GEAR GHOST 深化合作的整體風險？`:`After S1, Tsukuda rebuilt its reputation via the Gaudi valve technology. The S2 arc opens with Tsukuda under pressure on both its rocket-linked reputation and its existing engine business:<br/><br/>
+        ① <strong>Teikoku Heavy Industries</strong> signals that its rocket program may be scaled back after the next launch, putting Tsukuda's "rocket-quality" halo at risk. Meanwhile, 佃製作所's existing engine clients start defecting to cheaper suppliers (重田's pitch: "an engine that runs is enough"). Tsukuda faces pressure on two fronts simultaneously.<br/>
+        ② <strong>Tonomura Naohiro</strong> (accounting manager)'s father collapses at their family farm in Niigata. Tsukuda and Yamazaki rush to visit. On the farm, Tsukuda notices the tractor leaves uneven furrows — he traces the problem to the <strong>transmission valve system</strong>, exactly Tsukuda's core expertise.<br/>
+        ③ This technical insight leads Tsukuda to approach <strong>Gear Ghost</strong> — a venture company led by former Teikoku engineer <strong>Itami Dai</strong> and key engineer <strong>Shimazu Yutaka</strong>, building next-generation agricultural transmissions by integrating high-performance components. Tsukuda's valve technology becomes central to that effort.<br/><br/>
+        <strong>Core strategic dilemma:</strong> Is the agricultural transmission sector "related" to Tsukuda's rocket/valve capabilities? And very quickly: when GearGhost is hit with a 15-billion-yen patent lawsuit from Ke-Machinery, Tsukuda must decide — cooperate, or acquire?`}
+        </p>
+      </div>
+      <div class="callout teal" style="margin-top:8px;">
+        <p class="p" style="font-size:14px;"><strong>${zh?"殿村直弘的論點（正方）":"Tonomura's Argument (For)"}</strong><br/>
+        ${zh?`「我們的精密閥門技術，可以讓農機的液壓控制更精準，讓更精準的農機控制真正走進田間。這不只是生意——這是讓日本農業復興的機會！我們佃製作所，本來就是為了讓不可能成為可能而存在的。」`:`"This transmission valve problem is the same type of precision machining we do every day. If we can solve the problem for Gear Ghost, we're not abandoning rockets — we're applying the same craftsmanship to save Japan's agriculture. My family has farmed for generations. I know what this technology means for people who work the land."`}
+        </p>
+      </div>
+      <div class="callout red" style="margin-top:8px;">
+        <p class="p" style="font-size:14px;"><strong>${zh?"反對意見（佃製作所內部）":"Counter-argument (Internal, Tsukuda)"}</strong><br/>
+        ${zh?`「農業機械的規格要求和火箭截然不同——一個追求耐用性與成本控管，一個追求極限精度。我們一旦分散資源，兩邊都做不好！何況農業市場的訂單量大，我們工廠的產能跟不上。」`:`"GearGhost is a startup being sued for 15 billion yen. If we partner too closely, we get dragged into their legal battle. Our factory is already at full capacity for rocket contracts. And the moment word leaks about this acquisition idea, Teikoku Heavy Industries will put us under a credit investigation."`}
+        </p>
+      </div>
+    </div>
+
+    ${pollCard({
+      key:"poll_s0",
+      title:"Poll A：直覺判斷——農業機械市場對佃製作所來說是「相關多角化」還是「非相關多角化」？",
+      title_en:"Poll A: Gut check — Is Tsukuda's move toward agricultural transmissions via GearGhost 'related' or 'unrelated' diversification? (Hint: think about WHERE the relatedness lies)",
+      opts:[
+        ["a","相關多角化——核心精密加工技術可以直接遷移","Related — core precision machining technology transfers directly"],
+        ["b","非相關多角化——終端市場、客戶、通路完全不同","Unrelated — end markets, customers, and channels are entirely different"],
+        ["c","介於兩者之間——技術相關，但市場脈絡差異很大","In between — technology is related, but market context differs greatly"],
+        ["d","無法判斷，需要更多資訊","Cannot judge without more information"]
+      ],
+      followup:["「相關」的定義應該看技術能力、市場／客戶，還是兩者都要？","殿村的情感論點算不算策略理由？Wiersema & Beck 怎麼看？"],
+      followup_en:["Should 'relatedness' be defined by technological capabilities, market/customers, or both?","GearGhost is a startup hit with a 15B yen lawsuit. Does supporting them count as 'diversification' at all, or is it something else (vertical integration, alliance, R&D cooperation)?"]
+    })}
+  </div>
+
+  <hr class="sep"/>
+  <div class="card">
+    <h3 class="cardTitle">${zh?"本週策略備忘錄問題":"This Week's Strategy Memo Question"}</h3>
+    <div class="callout green">
+      <p class="p"><strong>${zh?"策略備忘錄問題（W7）：":"Strategy Memo Question (W7):"}</strong><br/>
+      <em>${zh?"評估「農業機械／傳動系統」與佃製作所既有事業之間的相關性。這項多角化究竟會降低，還是提高公司整體的策略風險？":"Based on S2 Ep1-3 (Ghost Arc), evaluate whether agricultural transmission systems are related or unrelated to Tsukuda's existing portfolio. Then assess whether cooperation, minority investment, or acquisition would best balance growth opportunities against integration and governance risk."}</em>
+      </p>
+    </div>
+    <div class="grid3" style="gap:8px;margin-top:10px;">
+      ${[
+        ["第一步：定義相關性","Step 1: Define Relatedness","📦","#7B2F00",
+          zh?"用 Wiersema & Beck 的框架，分析佃製作所的多角化屬於哪種類型":"Use Wiersema & Beck's framework to classify Tsukuda's diversification type"],
+        ["第二步：評估策略位置","Step 2: Assess Strategic Position","🗺️","#1A4A8B",
+          zh?"用 Anand & Collis 的策略光譜，佃製作所在哪裡？往農業機械移動對組織設計有什麼影響？":"Where is Tsukuda on Anand & Collis's strategy continuum? What does the move toward ag-machinery imply for organizational design?"],
+        ["第三步：整合風險評估","Step 3: Integrate Risk Assessment","⚡","#5B21B6",
+          zh?"多角化是降低還是增加整體風險？用 Pedersen et al. + Belderbos et al. 的邏輯論證":"Does diversification reduce or increase overall risk? Argue using Pedersen et al. + Belderbos et al. logic"]
+      ].map(([z,e,ico,col,desc])=>`<div class="card" style="border-top:4px solid ${col};padding:12px;">
+        <div style="font-size:22px;margin-bottom:4px;">${ico}</div>
+        <div style="font-weight:900;font-size:13px;color:${col};margin-bottom:6px;">${zh?z:e}</div>
+        <div class="sm">${desc}</div>
+      </div>`).join("")}
+    </div>
+  </div>`;
+}
+
+// ════════════════════════════════════════════
+//  SECTION T1 — Wiersema & Beck: Diversification Types
+// ════════════════════════════════════════════
+function viewT1(){
+  const zh=ST.lang==="zh";
+  const chipData = [
+    {id:"c1",text:zh?"精密閥門製造技術（佃製作所核心）":"Precision valve manufacturing (Tsukuda core)",correct:"related"},
+    {id:"c2",text:zh?"小批量、高精度加工能力":"Small-batch high-precision machining capability",correct:"related"},
+    {id:"c3",text:zh?"傳動系統問題的診斷能力（田間觀察）":"Drivetrain diagnostic capability (farm observation)",correct:"related"},
+    {id:"c4",text:zh?"帝國重工的長期信任關係":"Long-term trust relationship with Teikoku",correct:"ambig"},
+    {id:"c5",text:zh?"殿村的農業家庭背景與情感連結":"Tonomura's farming family background & emotional connection",correct:"ambig"},
+    {id:"c6",text:zh?"農機市場通路與售後服務知識":"Agricultural machinery distribution & after-sales knowledge",correct:"unrelated"},
+    {id:"c7",text:zh?"工匠師傅的隱性技術知識（品質文化）":"Craftsmen's tacit knowledge & quality culture",correct:"related"},
+    {id:"c8",text:zh?"大量商品化市場的成本控管經驗":"Cost management experience in high-volume commodity markets",correct:"unrelated"},
+    {id:"c9",text:zh?"應對法律訴訟的組織韌性":"Organizational resilience in navigating legal disputes (e.g., GearGhost patent case)",correct:"ambig"},
+  ];
+  const done = ST.classifyDone["t1_chips"];
+  return `
+  <div class="sectionHead">
+    <div>
+      <h1 class="h1" style="color:var(--t1)">${zh?"T1｜Wiersema & Beck (2017): 多角化類型與相關性":"T1 | Wiersema & Beck (2017): Types of Diversification & Relatedness"}</h1>
+      <p class="sub">${zh?"如何定義和測量多角化的「相關性」？佃製作所的農業機械多角化屬於哪個類型？（18 min）":"How to define and measure 'relatedness' in diversification? What type does Tsukuda's ag-machinery move represent? (18 min)"}</p>
+    </div>
+    <div class="tag" style="border-color:rgba(123,47,0,.30);background:rgba(123,47,0,.08);color:var(--t1);">📦 T1 · 18 min</div>
+  </div>
+  ${timeTags("t1")}
+
+  <div class="grid2">
+    <div class="card">
+      <h3 class="cardTitle" style="color:var(--t1)">${zh?"兩種根本不同的多角化型態":"Two Fundamentally Different Types of Diversification"}</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
+        <div style="border:2px solid #15803d;border-radius:12px;padding:12px;background:rgba(21,128,61,.04);">
+          <div style="font-weight:900;font-size:14px;color:#14532d;margin-bottom:6px;">✅ ${zh?"相關多角化（Related Diversification）":"Related Diversification"}</div>
+          <p class="p" style="font-size:13px;">${zh?"新業務與現有業務<strong>共享策略資產或資源</strong>，例如技術、品牌、通路、製程知識。<br/>競爭優勢來源：<em>共享資源產生的規模經濟和範疇經濟</em>。":"New businesses <strong>share strategic assets or resources</strong> with existing ones: technology, brand, distribution channels, process knowledge.<br/>Competitive advantage source: <em>economies of scale and scope from shared resources</em>."}</p>
+        </div>
+        <div style="border:2px solid #DC2626;border-radius:12px;padding:12px;background:rgba(220,38,38,.04);">
+          <div style="font-weight:900;font-size:14px;color:#991b1b;margin-bottom:6px;">⚠️ ${zh?"非相關多角化（Unrelated Diversification）":"Unrelated Diversification"}</div>
+          <p class="p" style="font-size:13px;">${zh?"各業務間<strong>不共享策略資源</strong>，沒有具策略重要性的相互關係。<br/>競爭優勢來源：<em>財務協同、母公司管理能力（Parenting Advantage）</em>，例如資本分配、績效管理。":"Businesses do <strong>not share strategic resources</strong>; no interrelationships of strategic importance.<br/>Competitive advantage source: <em>financial synergies, parenting advantage</em> — capital allocation, performance management."}</p>
+        </div>
+      </div>
+      <div class="callout gold" style="margin-top:10px;">
+        <p class="p" style="font-size:13px;"><strong>Wiersema & Beck ${zh?"的關鍵洞察：":"key insight:"}</strong><br/>
+        ${zh?`「相關性」不能單純靠 SIC 產業代碼定義。<strong>資源相關性（Resource Relatedness）</strong>——尤其是技術流動的模式——才是真正驅動績效的關鍵。<br/>
+        → 農業機械與火箭在 SIC 代碼上差異極大；但在<em>技術流動</em>與<em>製造知識</em>層面，相關性可能高於表面所見。`:`'Relatedness' cannot simply be defined by SIC codes. <strong>Resource relatedness</strong> — especially technology flow patterns — is the real performance driver.<br/>
+        → Agricultural machinery and rockets differ enormously by SIC code; but in terms of <em>technology flows</em> and <em>manufacturing knowledge</em>, relatedness may be higher than it appears.`}</p>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="cardTitle" style="color:var(--t1)">${zh?"測量多角化的挑戰：三個主流方法":"Challenges in Measuring Diversification: Three Main Approaches"}</h3>
+      ${[
+        ["Wrigley-Rumelt 類型學","Wrigley-Rumelt Typology","#7B2F00",
+          zh?`將企業分類為：單一業務、主導業務、相關業務、非相關業務（先驅，1970s）。<br/>
+          <div style="font-family:var(--mono);font-size:12px;padding:8px 10px;background:rgba(123,47,0,.06);border-radius:8px;margin:6px 0;line-height:1.8;">
+            類型 = f(專業化比率 SR, 相關比率 RR, 垂直比率 VR)<br/>
+            SR = 最大業務營收 ÷ 總營收<br/>
+            RR = 最大相關業務群組營收 ÷ 總營收
+          </div>
+          <em>缺點：分類仰賴研究者主觀判斷，9類別無法區分細微差異</em>`:
+          `Classifies firms as: single-business, dominant, related, or unrelated (pioneering, 1970s).<br/>
+          <div style="font-family:var(--mono);font-size:12px;padding:8px 10px;background:rgba(123,47,0,.06);border-radius:8px;margin:6px 0;line-height:1.8;">
+            Type = f(Specialization Ratio SR, Related Ratio RR, Vertical Ratio VR)<br/>
+            SR = largest single-business revenue ÷ total revenue<br/>
+            RR = largest related-business-group revenue ÷ total revenue
+          </div>
+          <em>Limitation: Classification relies on researcher judgment; 9 categories too coarse</em>`],
+        ["熵值測量（Entropy Measure）","Entropy Measure","#1A4A8B",
+          zh?`Palepu (1985) 提出的連續測量。設 Pᵢ 為第 i 個業務部門佔總營收的比例，以 SIC 兩位數代碼區分業務群組 j：<br/>
+          <div style="font-family:var(--mono);font-size:12px;padding:8px 10px;background:rgba(26,74,139,.06);border-radius:8px;margin:6px 0;line-height:2.0;">
+            相關多角化：D<sub>R</sub> = Σⱼ Pⱼ × [Σᵢ∈ⱼ (Pᵢ/Pⱼ) × ln(Pⱼ/Pᵢ)]<br/>
+            非相關多角化：D<sub>U</sub> = Σⱼ Pⱼ × ln(1/Pⱼ)<br/>
+            總多角化：D<sub>T</sub> = D<sub>R</sub> + D<sub>U</sub> = Σᵢ Pᵢ × ln(1/Pᵢ)
+          </div>
+          <em>缺點：SIC 以生產流程為基礎，無法捕捉市場相似性或無形資源的相關性</em>`:
+          `Continuous measure by Palepu (1985). Let Pᵢ = segment i's share of total revenue; SIC two-digit codes define business groups j:<br/>
+          <div style="font-family:var(--mono);font-size:12px;padding:8px 10px;background:rgba(26,74,139,.06);border-radius:8px;margin:6px 0;line-height:2.0;">
+            Related diversification: D<sub>R</sub> = Σⱼ Pⱼ × [Σᵢ∈ⱼ (Pᵢ/Pⱼ) × ln(Pⱼ/Pᵢ)]<br/>
+            Unrelated diversification: D<sub>U</sub> = Σⱼ Pⱼ × ln(1/Pⱼ)<br/>
+            Total diversification: D<sub>T</sub> = D<sub>R</sub> + D<sub>U</sub> = Σᵢ Pᵢ × ln(1/Pᵢ)
+          </div>
+          <em>Limitation: SIC is production-based, missing market similarity or intangible resource relatedness</em>`],
+        ["資源相關性指數","Resource Relatedness Index","#5B21B6",
+          zh?`Robins & Wiersema (1995) 的突破：基於<em>產業間技術流動模式</em>建立相關性指數。設 tᵢⱼ 為產業 i 流向產業 j 的技術流量：<br/>
+          <div style="font-family:var(--mono);font-size:12px;padding:8px 10px;background:rgba(91,33,182,.06);border-radius:8px;margin:6px 0;line-height:2.0;">
+            relatedness(i,j) = tᵢⱼ / (Tᵢ + Tⱼ − tᵢⱼ)  [Jaccard 相似係數]<br/>
+            R = Σᵢ Σⱼ≠ᵢ Pᵢ × Pⱼ × relatedness(i,j)
+          </div>
+          發現：以此指數測量時，<strong>相關多角化確實帶來正向績效效果</strong>——但傳統 SIC 測量看不到這一點。`:
+          `Robins & Wiersema (1995) breakthrough: relatedness index based on <em>inter-industry technology flow patterns</em>. Let tᵢⱼ = technology flow from industry i to j:<br/>
+          <div style="font-family:var(--mono);font-size:12px;padding:8px 10px;background:rgba(91,33,182,.06);border-radius:8px;margin:6px 0;line-height:2.0;">
+            relatedness(i,j) = tᵢⱼ / (Tᵢ + Tⱼ − tᵢⱼ)  [Jaccard similarity]<br/>
+            R = Σᵢ Σⱼ≠ᵢ Pᵢ × Pⱼ × relatedness(i,j)
+          </div>
+          Finding: When measured this way, <strong>related diversification does yield positive performance effects</strong> — but traditional SIC measures miss this.`]
+      ].map(([z,e,col,desc])=>`<div style="border-left:4px solid ${col};border-radius:0 10px 10px 0;padding:10px 12px;background:${col}08;margin-bottom:8px;">
+        <div style="font-weight:900;font-size:13px;color:${col};margin-bottom:4px;">${zh?z:e}</div>
+        <div class="sm">${desc}</div>
+      </div>`).join("")}
+      <div class="callout orange" style="margin-top:8px;">
+        <p class="p" style="font-size:13px;"><strong>${zh?"高多角化程度≠高績效的原因":"Why High Diversification ≠ High Performance:"}</strong><br/>
+        ${zh?"Wiersema & Beck 確認：<em>高程度多角化傾向於破壞價值</em>，因為整合成本隨多角化程度超線性上升。但這是平均效果——相關多角化中有一部分企業可以獲得多角化溢酬（Diversification Premium）。":"Wiersema & Beck confirm: <em>high levels of diversification tend to destroy value</em> because integration costs rise superlinearly. But this is an average — a subset of related diversifiers can achieve a diversification premium."}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Figure 1-1: Inverted-U Diversification-Performance -->
+  <div class="card" style="margin-top:14px;">
+    <h3 class="cardTitle">${zh?"📊 Figure 1-1：多角化程度與績效的倒 U 型關係":"📊 Figure 1-1: Inverted-U Relationship Between Diversification Level and Performance"}</h3>
+    <p class="sm" style="margin-bottom:12px;">${zh?`Palich, Cardinal & Miller (2000) 統合分析及 Hitt, Irelan & Hoskisson (1999) 整理：適度的<strong>相關約束型多角化（Related Constrained）</strong>績效最佳；過少（主導型）或過多（非相關型）多角化皆使績效下降。`:`Palich, Cardinal & Miller (2000) meta-analysis and Hitt, Irelan & Hoskisson (1999) synthesis: moderate <strong>related constrained diversification</strong> yields the best performance; both too little (dominant business) and too much (unrelated business) diversification reduce performance.`}</p>
+    <div style="display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start;">
+      <svg viewBox="0 0 520 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:520px;display:block;font-family:var(--sans);">
+        <!-- Background grid -->
+        <line x1="70" y1="240" x2="480" y2="240" stroke="#D7DEE9" stroke-width="1"/>
+        <line x1="70" y1="190" x2="480" y2="190" stroke="#D7DEE9" stroke-width="0.8" stroke-dasharray="4,4"/>
+        <line x1="70" y1="140" x2="480" y2="140" stroke="#D7DEE9" stroke-width="0.8" stroke-dasharray="4,4"/>
+        <line x1="70" y1="90" x2="480" y2="90" stroke="#D7DEE9" stroke-width="0.8" stroke-dasharray="4,4"/>
+        <!-- Axes -->
+        <line x1="70" y1="260" x2="490" y2="260" stroke="#0B1220" stroke-width="2.2"/>
+        <line x1="70" y1="260" x2="70" y2="40" stroke="#0B1220" stroke-width="2.2"/>
+        <!-- Axis arrows -->
+        <polygon points="490,256 498,260 490,264" fill="#0B1220"/>
+        <polygon points="66,40 70,32 74,40" fill="#0B1220"/>
+        <!-- Y-axis label -->
+        <text x="18" y="160" text-anchor="middle" font-size="14" font-weight="700" fill="#0B1220" transform="rotate(-90 18 160)">Performance</text>
+        <!-- X-axis label -->
+        <text x="280" y="310" text-anchor="middle" font-size="14" font-weight="700" fill="#0B1220">Level of Diversification</text>
+        <!-- X-axis tick marks -->
+        <line x1="165" y1="258" x2="165" y2="264" stroke="#0B1220" stroke-width="2"/>
+        <line x1="280" y1="258" x2="280" y2="264" stroke="#0B1220" stroke-width="2"/>
+        <line x1="395" y1="258" x2="395" y2="264" stroke="#0B1220" stroke-width="2"/>
+        <!-- X-axis tick labels -->
+        <text x="165" y="274" text-anchor="middle" font-size="12" fill="#0B1220">Dominant</text>
+        <text x="165" y="287" text-anchor="middle" font-size="12" fill="#0B1220">Business</text>
+        <text x="280" y="274" text-anchor="middle" font-size="12" fill="#0B1220">Related</text>
+        <text x="280" y="287" text-anchor="middle" font-size="12" fill="#0B1220">Constrained</text>
+        <text x="395" y="274" text-anchor="middle" font-size="12" fill="#0B1220">Unrelated</text>
+        <text x="395" y="287" text-anchor="middle" font-size="12" fill="#0B1220">Business</text>
+        <!-- The inverted-U curve (blue, matching original) -->
+        <path d="M100,215 C130,195 155,145 200,105 C225,83 255,72 280,70 C305,72 335,83 355,100 C390,128 420,180 455,220" fill="none" stroke="#1A2FC4" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Peak indicator -->
+        <circle cx="280" cy="70" r="6" fill="#C9A227" stroke="#002B5C" stroke-width="2"/>
+        <line x1="280" y1="70" x2="280" y2="260" stroke="#C9A227" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <!-- Region shading -->
+        <rect x="70" y="40" width="95" height="220" fill="rgba(220,38,38,.04)" rx="0"/>
+        <rect x="165" y="40" width="230" height="220" fill="rgba(21,128,61,.04)" rx="0"/>
+        <rect x="395" y="40" width="85" height="220" fill="rgba(220,38,38,.04)" rx="0"/>
+        <!-- Region labels at top -->
+        <text x="117" y="58" text-anchor="middle" font-size="10" fill="#991B1B" font-weight="700">↓ 折價</text>
+        <text x="280" y="58" text-anchor="middle" font-size="10" fill="#14532D" font-weight="700">↑ 最佳區間</text>
+        <text x="437" y="58" text-anchor="middle" font-size="10" fill="#991B1B" font-weight="700">↓ 折價</text>
+        <!-- Source -->
+        <text x="70" y="22" font-size="10" fill="#64748B" font-style="italic">Source: Hitt, Irelan &amp; Hoskisson (1999); Palich, Cardinal &amp; Miller (2000)</text>
+      </svg>
+      <div style="min-width:160px;display:flex;flex-direction:column;gap:8px;padding-top:10px;">
+        ${[
+          ["#991B1B","rgba(220,38,38,.06)",zh?"主導型（Dominant）":"Dominant Business",zh?"多角化不足：範疇經濟未充分利用，整體回報偏低":"Under-diversified: economies of scope underutilized"],
+          ["#14532D","rgba(21,128,61,.06)",zh?"相關約束型（Related Constrained）":"Related Constrained",zh?"最佳區間：資源共享效益最大化，協調成本尚在可控範圍":"Optimal zone: resource sharing benefits maximized, coordination costs manageable"],
+          ["#7C5500","rgba(201,162,39,.06)",zh?"相關連結型（Related Linked）":"Related Linked",zh?"績效開始下滑：協調複雜度上升":"Performance starting to decline: coordination complexity rises"],
+          ["#991B1B","rgba(220,38,38,.06)",zh?"非相關型（Unrelated）":"Unrelated Business",zh?"多角化過度：整合成本超過效益，多角化折價顯現":"Over-diversified: integration costs exceed benefits; diversification discount emerges"]
+        ].map(([col,bg,t,d])=>`<div style="border-left:3px solid ${col};background:${bg};border-radius:0 8px 8px 0;padding:7px 10px;">
+          <div style="font-weight:800;font-size:11px;color:${col};margin-bottom:2px;">${t}</div>
+          <div style="font-size:10px;color:var(--muted);line-height:1.4;">${d}</div>
+        </div>`).join("")}
+        <div style="padding:8px 10px;background:rgba(0,43,92,.04);border:1px solid var(--line);border-radius:8px;font-size:11px;color:var(--muted);line-height:1.5;">
+          💡 <strong>${zh?"佃製作所目前位置：":"Tsukuda's current position:"}</strong><br/>${zh?"火箭＋醫療＝相關連結型左端；加入農機可能推向曲線下坡段":"Rocket+Medical ≈ Related Linked left edge; adding ag-machinery may push toward the downslope"}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep"/>
+  <div class="gameBox">
+    <div class="gameTitle">🎮 <span class="gameTag">Mini-Game 1</span> ${zh?"佃製作所能力分類器":"Tsukuda Capability Classifier"}</div>
+    <div class="gameInstr">${zh?`以下是佃製作所的資產與能力。請將它們拖放到對應的欄位中：<br/>
+    • <strong>農業機械相關（農機多角化有幫助）</strong>：這個能力或資產在農業機械市場中可以複製或直接轉移<br/>
+    • <strong>農業機械不相關（對農機幫助有限）</strong>：這個能力主要服務現有市場，不易遷移<br/>
+    • <strong>模糊地帶（需要更多分析）</strong>：相關性不確定，取決於如何定義「相關」<br/>
+    拖完後點「查看分析」看討論面向——但注意，<em>沒有唯一正確答案</em>，這是幫助你思考的框架！`:`Drag and drop Tsukuda's assets and capabilities into the appropriate columns:<br/>
+    • <strong>Ag-Machinery Related (helpful for diversification)</strong>: This capability can be replicated or transferred directly in agricultural markets<br/>
+    • <strong>Ag-Machinery Unrelated (limited value for ag-machinery)</strong>: Primarily serves existing markets; not easily transferable<br/>
+    • <strong>Ambiguous Zone (more analysis needed)</strong>: Relatedness is uncertain, depends on how 'related' is defined<br/>
+    After sorting, click 'View Analysis' — but note, <em>there's no single correct answer</em>; this is a framework for thinking!`}</div>
+
+    <div id="chipBank" class="classifyBank">
+      ${chipData.filter(c=>!ST.classifyDone["t1_"+c.id]).map(c=>`<div class="classifyChip" id="chip-${c.id}" draggable="true" data-chip="${c.id}">${c.text}</div>`).join("")}
+    </div>
+    <div class="classifyRow" id="classifyCols">
+      ${[
+        ["related",zh?"🟢 農業機械相關":"🟢 Ag-Machinery Related","#14532D"],
+        ["ambig",zh?"🟡 模糊地帶":"🟡 Ambiguous Zone","#7C5500"],
+        ["unrelated",zh?"🔴 農業機械不相關":"🔴 Ag-Machinery Unrelated","#991B1B"]
+      ].map(([cat,label,col])=>`<div class="classifyCol" id="col-${cat}" data-cat="${cat}">
+        <div class="classifyColTitle" style="color:${col};">${label}</div>
+        ${chipData.filter(c=>ST.classifyDone["t1_"+c.id]===cat).map(c=>`<div class="classifyChip ${done?'':''}${ST.classifyDone["t1_"+c.id]===cat?'':''}" data-chip="${c.id}">${c.text}</div>`).join("")}
+      </div>`).join("")}
+    </div>
+    <div class="gameBtnRow">
+      <button class="gameBtn primary" id="classifyReveal">${zh?"查看分析框架":"View Analysis Framework"}</button>
+      <button class="gameBtn" id="classifyReset">${zh?"重置":"Reset"}</button>
+    </div>
+    <div class="gameReveal" id="classifyRevealBox">
+      <strong>${zh?"分析框架提示（討論用）：":"Analysis Framework Hints (for discussion):"}</strong><br/><br/>
+      ${zh?`<strong>傾向「相關」的考量：</strong>精密閥門技術、傳動系統問題診斷、工匠隱性知識——這些直接對應到 Gear Ghost 的核心技術需求。島津被 153 個零件打動正是因為技術確實相近。<br/><br/>
+      <strong>傾向「不相關」的考量：</strong>農機大量商品化市場的通路、成本競爭邏輯、售後服務體系，佃製作所完全沒有。即使技術相近，市場進入需要截然不同的商業能力。<br/><br/>
+      <strong>模糊地帶的核心：</strong>「帝國重工的信任關係」和「殿村的農家情感連結」——這兩者是「資源」嗎？前者幫助佃維持品質聲譽（間接相關），後者帶來了問題發現的情境（偶然因素？）。Wiersema & Beck 提醒：SIC 代碼看不到這種軟性資源的相關性。<br/><br/>
+      → 你的分類本身不是答案；<em>你說明「為什麼這個資源在農機市場有（或沒有）遷移價值」的能力，才是策略備忘錄的核心。</em>`:`<strong>Considerations favoring 'Related':</strong> Precision hydraulic valves, small-batch high-precision machining, craftsmen's tacit knowledge — these transfer directly to agricultural hydraulic systems. Modernized precision agriculture requires aerospace-grade control precision.<br/><br/>
+      <strong>Considerations favoring 'Unrelated':</strong> Sales channels to rocket manufacturers are entirely different from ag-machinery companies; the Teikoku Heavy Industries relationship is primarily in aerospace, almost useless for agricultural markets.<br/><br/>
+      <strong>The real question in the Ambiguous Zone:</strong> Judgment of 'resource relatedness' depends on how you define 'core capability.' Wiersema & Beck show that SIC-based measurement makes ag-machinery look 'unrelated,' but technology-flow-based measurement may conclude 'related.'<br/><br/>
+      → Your classification itself is not the answer; <em>your ability to explain your reasoning is the core of the strategy memo.</em>`}
+    </div>
+  </div>
+
+  <hr class="sep"/>
+  ${quizCard({
+    key:"q_t1_1",
+    q:"Wiersema & Beck 指出，傳統 SIC 代碼測量「相關性」最根本的問題是？",
+    q_en:"According to Wiersema & Beck, the most fundamental problem with using SIC codes to measure 'relatedness' is?",
+    opts:[
+      ["SIC 代碼資料太難取得，研究者沒辦法用","SIC code data is too difficult to obtain for researchers"],
+      ["SIC 以生產製程為基準，無法捕捉市場相似性或無形資源的相關性","SIC is production-based, missing market similarity and intangible resource relatedness"],
+      ["SIC 只有四位數分類，粒度不夠細","SIC only has four-digit classification; not granular enough"],
+      ["不同國家的 SIC 代碼不一樣，難以國際比較","SIC codes differ across countries, making international comparison difficult"]
+    ],
+    ans:1,
+    exp:"答案 B。Wiersema & Beck 的核心論點是：相關性的真正基礎在於資源與能力的共用潛力，而 SIC 系統是以生產技術為基礎的分類，無法反映市場相似性或無形資源（品牌、知識、關係）的相關性。這正是為什麼基於「技術流動模式」的測量，能夠發現 SIC 測量所看不到的相關多角化溢酬。",
+    exp_en:"Answer B. Wiersema & Beck's core argument: the true basis of relatedness lies in the potential for sharing resources and capabilities. The SIC system classifies industries by production technology, missing market similarity and intangible resource (brand, knowledge, relationships) relatedness. This is precisely why technology-flow-based measures can detect diversification premiums that SIC-based measures miss."
+  })}`;
+}
+
+// ════════════════════════════════════════════
+//  SECTION T2 — Anand & Collis: Strategy Continuum
+// ════════════════════════════════════════════
+function viewT2(){
+  const zh=ST.lang==="zh";
+  const pos=ST.continuumPos||30;
+  return `
+  <div class="sectionHead">
+    <div>
+      <h1 class="h1" style="color:var(--t2)">${zh?"T2｜Anand & Collis (2024): 多事業策略光譜":"T2 | Anand & Collis (2024): The Multibusiness Strategy Continuum"}</h1>
+      <p class="sub">${zh?"為什麼多事業企業如此難以成功？佃製作所在策略光譜上的位置如何影響其農業機械多角化決策？（17 min）":"Why is multibusiness strategy so difficult to execute well? How does Tsukuda's position on the strategy continuum shape its ag-machinery diversification decision? (17 min)"}</p>
+    </div>
+    <div class="tag" style="border-color:rgba(26,74,139,.30);background:rgba(26,74,139,.08);color:var(--t2);">🗺️ T2 · 17 min</div>
+  </div>
+  ${timeTags("t2")}
+
+  <div class="grid2">
+    <div class="card">
+      <h3 class="cardTitle" style="color:var(--t2)">${zh?"多事業企業為何普遍失敗？":"Why Do Multibusiness Firms Typically Fail?"}</h3>
+      <div class="callout red">
+        <p class="p" style="font-size:14px;"><strong>${zh?"多角化折價（Diversification Discount）：":"Diversification Discount:"}</strong><br/>
+        ${zh?"大多數多事業企業<em>摧毀</em>股東價值。多角化企業的市值平均<strong>低於各業務獨立價值加總約 15%</strong>（Berger & Ofek 等研究確認）。":"Most multibusiness firms <em>destroy</em> shareholder value. Diversified firms' market capitalization averages <strong>about 15% below the combined standalone value</strong> of their businesses (confirmed by Berger, Ofek et al.)."}</p>
+      </div>
+      <div class="callout green" style="margin-top:8px;">
+        <p class="p" style="font-size:14px;"><strong>${zh?"但也有例外——":"But exceptions exist —"}</strong><br/>
+        ${zh?"約 40% 的多事業企業能<em>持續</em>超越同業或大盤（Anand & Byzalov 2014 對 8,000+ 企業研究）。這些成功者的共同點是：<strong>清楚知道自己在策略光譜的哪個位置，並讓組織設計與此位置一致</strong>。":"About 40% of multibusiness firms can <em>consistently</em> outperform peers or the market (Anand & Byzalov 2014 on 8,000+ firms). These successes share one trait: <strong>clearly knowing where they are on the strategy continuum and aligning organizational design accordingly</strong>."}</p>
+      </div>
+      <hr class="sep"/>
+      <h4 class="cardTitle" style="font-size:14px;">${zh?"增加企業整體價值的四條路徑（Anand & Collis）：":"Four Ways to Increase Total Corporate Value (Anand & Collis):"}</h4>
+      <div style="font-family:var(--mono);font-size:14px;padding:10px;background:rgba(0,43,92,.04);border-radius:10px;line-height:1.8;">
+        P = w₁×r₁ + w₂×r₂ + … − 總部費用
+      </div>
+      <ul class="ul" style="font-size:14px;margin-top:8px;">
+        <li><strong>① 垂直介入（Vertical）：</strong>${zh?"提升各業務個別績效（改變 r）":"Improve individual business performance (change r)"}</li>
+        <li><strong>② 水平協同（Horizontal）：</strong>${zh?"提升業務間的綜效（共享資源、技術、品牌）":"Increase synergies across businesses (share resources, tech, brand)"}</li>
+        <li><strong>③ 組合調整（Portfolio）：</strong>${zh?"買入賣出，調整各業務比重（改變 w）":"Buy and sell businesses, adjust portfolio weights (change w)"}</li>
+        <li><strong>④ 降低總部費用（Overhead）：</strong>${zh?"精簡總部，降低管理成本":"Streamline HQ, reduce management costs"}</li>
+      </ul>
+      <div class="callout gold" style="margin-top:8px;">
+        <p class="p" style="font-size:13px;"><strong>${zh?"常見陷阱：":"Common trap:"}</strong>${zh?" 多數企業過度執著於「調整組合（改變 w）」，而忽略了「提升個別業務績效（改變 r）」。農業機械就是 Tsukuda 的 w 決策——但更重要的問題是：進入後能否真正提升 r？":" Most firms are obsessed with 'changing the portfolio (changing w)' while neglecting 'improving individual business performance (changing r).' Ag-machinery is Tsukuda's w decision — but the more important question is: can they actually improve r after entering?"}</p>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="cardTitle" style="color:var(--t2)">${zh?"策略光譜：從完全不相關到高度相關":"The Strategy Continuum: From Highly Unrelated to Highly Related"}</h3>
+      <div class="callout teal">
+        <p class="p" style="font-size:13px;"><strong>${zh?"核心論點：":"Core argument:"}</strong> ${zh?"不存在單一最佳的企業策略。連續體上的任何位置都可以成功，<em>前提是組織設計與此位置相一致</em>。Anand & Collis 舉例：":"There is no single best corporate strategy. Any position on the continuum can succeed, <em>provided organizational design aligns with that position</em>. Examples from Anand & Collis:"}</p>
+      </div>
+      ${[
+        ["主權財富基金（挪威 GPF）","Sovereign Wealth Fund","#7C3AED",
+          zh?"完全不相關端：不介入個別業務決策，唯一優勢是投資選股能力，極小總部（600人管理1.6兆美元）。":"Highly unrelated end: never intervenes in individual business decisions; sole advantage is investment selection capability. Tiny HQ (600 people managing $1.6T)."],
+        ["Berkshire Partners (PE)","Berkshire Partners (PE)","#1A4A8B",
+          zh?"不相關端：透過強治理、高激勵、嚴格財務監控創造價值，但不分享業務層面的協同效益。":"Unrelated side: creates value through stronger governance, high-powered incentives, tight financial monitoring — but no business-level synergies."],
+        ["Danaher（精實管理）","Danaher (Lean Mgmt.)","#C9A227",
+          zh?"連續體中段：業務間幾乎無產品協同，但共享「Danaher Business System（DBS）」——同一套管理流程與工具。":"Mid-continuum: almost no product synergies, but all businesses share the 'Danaher Business System (DBS)' — same management processes and tools."],
+        ["Disney（品牌槓桿）","Disney (Brand Leverage)","#15803d",
+          zh?"相關端：米老鼠等角色跨業務（主題樂園/電影/商品）創造品牌槓桿，需要總部協調內容品質與角色使用。":"Related side: Mickey Mouse etc. create brand leverage across businesses (parks/film/merchandise). Requires HQ to coordinate content quality and character usage."],
+        ["Clorox（高度相關）","Clorox (Highly Related)","#991B1B",
+          zh?"高度相關端：同一品牌管理、同一通路（超市）、共享供應鏈，CEO 可以每天監控各品牌的超市銷售數字。":"Highly related end: shared brand management, shared channel (supermarkets), shared supply chain. CEO can monitor daily supermarket sales by brand."]
+      ].map(([z,e,col,desc])=>`<div style="border-left:4px solid ${col};border-radius:0 10px 10px 0;padding:9px 12px;background:${col}0A;margin-bottom:7px;">
+        <div style="font-weight:900;font-size:12px;color:${col};margin-bottom:3px;">${zh?z:e}</div>
+        <div class="sm">${desc}</div>
+      </div>`).join("")}
+    </div>
+  </div>
+
+  <hr class="sep"/>
+
+  <!-- ════ HQ ROLE VISUAL ════ -->
+  <div class="card" style="margin-bottom:0;">
+    <h3 class="cardTitle" style="color:var(--t2)">${zh?"📌 總部應扮演何種角色？——策略光譜的組織設計邏輯":"📌 What Role Should HQ Play? — Organizational Design Logic of the Strategy Continuum"}</h3>
+    <p class="sm" style="margin-bottom:14px;">${zh?"Anand & Collis 的核心論點：<strong>光譜位置決定了總部應具備哪些能力、應深入到什麼程度</strong>。位置和總部角色若不匹配，就是「混搭陷阱」——是最常見的失敗原因。":"Anand & Collis's core point: <strong>where you sit on the spectrum determines what HQ capabilities are needed and how deeply HQ should intervene</strong>. A mismatch between position and HQ role is the 'mix-and-match trap' — the most common failure mode."}</p>
+
+    <!-- ── SPECTRUM HEADER BAR ── -->
+    <div style="display:flex;align-items:stretch;gap:0;margin-bottom:6px;border-radius:10px;overflow:hidden;border:1px solid var(--line);">
+      ${[
+        ["#7C3AED","#F3F0FF",zh?"完全不相關":"Fully Unrelated",zh?"財務控制":"Financial Control"],
+        ["#1A4A8B","#EEF2FA",zh?"不相關":"Unrelated",zh?"治理監控":"Governance"],
+        ["#C9A227","#FFF8E1",zh?"中段（流程共享）":"Mid (Process Sharing)",zh?"能力移轉":"Capability Transfer"],
+        ["#15803d","#DCFCE7",zh?"相關":"Related",zh?"資源協同":"Resource Synergy"],
+        ["#991B1B","#FEE2E2",zh?"高度相關":"Highly Related",zh?"深度整合":"Deep Integration"],
+      ].map(([col,bg,label,role])=>`<div style="flex:1;text-align:center;background:${bg};padding:6px 4px;border-right:1px solid var(--line);">
+        <div style="font-size:10px;font-weight:900;color:${col};letter-spacing:.02em;">${label}</div>
+        <div style="font-size:9px;color:${col};opacity:.7;margin-top:2px;">${role}</div>
+      </div>`).join("")}
+    </div>
+
+    <!-- ── FIVE COLUMNS: one per spectrum position ── -->
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:14px;">
+      ${[
+        {
+          col:"#7C3AED", bg:"#F3F0FF", icon:"🏦",
+          anchor_zh:"主權財富基金 / Berkshire PE",
+          anchor_en:"Sovereign Wealth Fund / Berkshire PE",
+          hq_zh:"HQ 規模",       hq_en:"HQ Size",
+          hq_val:"極小（數百人）", hq_val_en:"Tiny (hundreds)",
+          role_zh:"主要職能",     role_en:"Main Function",
+          role_val_zh:"資本配置、財務治理", role_val_en:"Capital allocation, fin. governance",
+          depth_zh:"介入深度",    depth_en:"Intervention Depth",
+          depth_val_zh:"幾乎不介入日常業務", depth_val_en:"Near-zero daily ops involvement",
+          synergy_zh:"協同機制",   synergy_en:"Synergy Mechanism",
+          synergy_val_zh:"無業務間協同", synergy_val_en:"No cross-business synergy",
+          risk_zh:"主要風險",     risk_en:"Main Risk",
+          risk_val_zh:"HQ 若開始「指點」→ 破壞業務自主性", risk_val_en:"HQ meddling destroys business autonomy",
+          tsukuda_zh:"佃製作所適用？", tsukuda_en:"Tsukuda fit?",
+          tsukuda_val_zh:"❌ 佃社長無法純靠財務控制管理技術業務", tsukuda_val_en:"❌ Tsukuda can't run tech businesses on finance only",
+        },
+        {
+          col:"#1A4A8B", bg:"#EEF2FA", icon:"📊",
+          anchor_zh:"Berkshire Hathaway 集團",
+          anchor_en:"Berkshire Hathaway Conglomerate",
+          hq_zh:"HQ 規模",       hq_en:"HQ Size",
+          hq_val:"小（<30人）", hq_val_en:"Small (<30 people)",
+          role_zh:"主要職能",     role_en:"Main Function",
+          role_val_zh:"強治理、高激勵薪酬設計", role_val_en:"Strong governance, high-powered incentives",
+          depth_zh:"介入深度",    depth_en:"Intervention Depth",
+          depth_val_zh:"監控財務指標，不干預業務策略", depth_val_en:"Monitor KPIs, don't dictate strategy",
+          synergy_zh:"協同機制",   synergy_en:"Synergy Mechanism",
+          synergy_val_zh:"零業務間協同；各自最大化", synergy_val_en:"Zero synergy; each unit maximized independently",
+          risk_zh:"主要風險",     risk_en:"Main Risk",
+          risk_val_zh:"HQ 若嘗試創造「協同」→ 增加成本、無回報", risk_val_en:"Forcing synergies creates cost without return",
+          tsukuda_zh:"佃製作所適用？", tsukuda_en:"Tsukuda fit?",
+          tsukuda_val_zh:"⚠️ 部分適用：初期火箭+醫療各自獨立時", tsukuda_val_en:"⚠️ Partial: early stage when rocket/medical are separate",
+        },
+        {
+          col:"#C9A227", bg:"#FFF8E1", icon:"⚙️",
+          anchor_zh:"Danaher（精實管理典範）",
+          anchor_en:"Danaher (Lean Mgmt. Model)",
+          hq_zh:"HQ 規模",       hq_en:"HQ Size",
+          hq_val:"中（幾百人）", hq_val_en:"Medium (few hundred)",
+          role_zh:"主要職能",     role_en:"Main Function",
+          role_val_zh:"複製管理流程（DBS）跨業務部署", role_val_en:"Replicate mgmt processes (DBS) across businesses",
+          depth_zh:"介入深度",    depth_en:"Intervention Depth",
+          depth_val_zh:"深度介入「如何做事」，不介入「做什麼事」", depth_val_en:"Deep in 'how to do' not 'what to do'",
+          synergy_zh:"協同機制",   synergy_en:"Synergy Mechanism",
+          synergy_val_zh:"管理流程共享；能力移轉（非產品/市場協同）", synergy_val_en:"Process sharing; capability transfer (not product/market)",
+          risk_zh:"主要風險",     risk_en:"Main Risk",
+          risk_val_zh:"DBS 移植不成功時浪費大量資源", risk_val_en:"Failed process transplant wastes significant resources",
+          tsukuda_zh:"佃製作所適用？", tsukuda_en:"Tsukuda fit?",
+          tsukuda_val_zh:"✅ 最接近：佃的品質文化可視為「佃版DBS」", tsukuda_val_en:"✅ Best fit: Tsukuda's quality culture ≈ 'Tsukuda DBS'",
+        },
+        {
+          col:"#15803d", bg:"#DCFCE7", icon:"🎬",
+          anchor_zh:"Disney（品牌槓桿典範）",
+          anchor_en:"Disney (Brand Leverage Model)",
+          hq_zh:"HQ 規模",       hq_en:"HQ Size",
+          hq_val:"大（創意/品牌/法務）", hq_val_en:"Large (creative/brand/legal)",
+          role_zh:"主要職能",     role_en:"Main Function",
+          role_val_zh:"協調跨業務資源使用（品牌、IP、角色）", role_val_en:"Coordinate cross-business resource use (brand, IP, characters)",
+          depth_zh:"介入深度",    depth_en:"Intervention Depth",
+          depth_val_zh:"深度介入品牌策略；業務有一定自主", depth_val_en:"Deep in brand strategy; businesses retain some autonomy",
+          synergy_zh:"協同機制",   synergy_en:"Synergy Mechanism",
+          synergy_val_zh:"產品/市場協同（同一 IP 跨通路變現）", synergy_val_en:"Product/market synergy (same IP monetized across channels)",
+          risk_zh:"主要風險",     risk_en:"Main Risk",
+          risk_val_zh:"品牌稀釋或通路衝突", risk_val_en:"Brand dilution or channel conflict",
+          tsukuda_zh:"佃製作所適用？", tsukuda_en:"Tsukuda fit?",
+          tsukuda_val_zh:"⚠️ 火箭+農機無共同 IP/品牌可槓桿", tsukuda_val_en:"⚠️ Rockets + ag-machinery have no shared IP/brand to leverage",
+        },
+        {
+          col:"#991B1B", bg:"#FEE2E2", icon:"🧴",
+          anchor_zh:"Clorox（高度整合典範）",
+          anchor_en:"Clorox (Highly Integrated Model)",
+          hq_zh:"HQ 規模",       hq_en:"HQ Size",
+          hq_val:"大（功能型 HQ）", hq_val_en:"Large (functional HQ)",
+          role_zh:"主要職能",     role_en:"Main Function",
+          role_val_zh:"統一管理品牌、通路、供應鏈、行銷", role_val_en:"Centrally manage brand, channel, supply chain, marketing",
+          depth_zh:"介入深度",    depth_en:"Intervention Depth",
+          depth_val_zh:"深度介入所有重要業務決策", depth_val_en:"Deep involvement in all major business decisions",
+          synergy_zh:"協同機制",   synergy_en:"Synergy Mechanism",
+          synergy_val_zh:"全面共享：通路+品牌+供應鏈協同最大化", synergy_val_en:"Full sharing: channel + brand + supply chain synergy maximized",
+          risk_zh:"主要風險",     risk_en:"Main Risk",
+          risk_val_zh:"若業務有差異，強迫整合反而摧毀業務自主性", risk_val_en:"Forcing integration across diverse businesses destroys agility",
+          tsukuda_zh:"佃製作所適用？", tsukuda_en:"Tsukuda fit?",
+          tsukuda_val_zh:"❌ 完全不適用：火箭與農機市場差異過大，無法統一管理", tsukuda_val_en:"❌ Not applicable: rocket vs. ag-machinery markets too different to centrally manage",
+        },
+      ].map(o=>`<div style="border:1.5px solid ${o.col}40;border-top:4px solid ${o.col};border-radius:0 0 12px 12px;padding:10px 10px;background:${o.bg};display:flex;flex-direction:column;gap:4px;">
+        <div style="font-size:18px;text-align:center;margin-bottom:2px;">${o.icon}</div>
+        <div style="font-size:10.5px;font-weight:900;color:${o.col};text-align:center;line-height:1.3;margin-bottom:4px;">${zh?o.anchor_zh:o.anchor_en}</div>
+        ${[
+          [o.hq_zh,o.hq_en,o.hq_val,o.hq_val_en,"#475569"],
+          [o.role_zh,o.role_en,o.role_val_zh,o.role_val_en,"#0f172a"],
+          [o.depth_zh,o.depth_en,o.depth_val_zh,o.depth_val_en,"#0f172a"],
+          [o.synergy_zh,o.synergy_en,o.synergy_val_zh,o.synergy_val_en,"#0f172a"],
+          [o.risk_zh,o.risk_en,o.risk_val_zh,o.risk_val_en,"#991B1B"],
+          [o.tsukuda_zh,o.tsukuda_en,o.tsukuda_val_zh,o.tsukuda_val_en,o.col],
+        ].map(([lz,le,vz,ve,c])=>`<div style="margin-bottom:3px;">
+          <div style="font-size:9.5px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.04em;">${zh?lz:le}</div>
+          <div style="font-size:10.5px;color:${c};line-height:1.4;">${zh?vz:ve}</div>
+        </div>`).join("")}
+      </div>`).join("")}
+    </div>
+
+    <!-- ── TSUKUDA ARROW INDICATOR ── -->
+    <div style="margin:0 0 10px;padding:0 2px;">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:4px;letter-spacing:.04em;text-transform:uppercase;">${zh?"佃製作所在光譜上的位置（目前 → 若收購 GearGhost 後）":"Tsukuda's Current Position → If GearGhost Is Acquired"}</div>
+      <div style="position:relative;height:28px;background:linear-gradient(90deg,#7C3AED22,#1A4A8B22,#C9A22733,#15803d22,#991B1B22);border-radius:8px;overflow:visible;border:1px solid var(--line);">
+        <!-- Pointer: current position ~35% -->
+        <div style="position:absolute;left:33%;top:-8px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:1px;">
+          <div style="font-size:9px;font-weight:900;color:var(--ntu);white-space:nowrap;background:#fff;padding:1px 5px;border-radius:999px;border:1.5px solid var(--ntu);">${zh?"📍 現在":"📍 Now"} ~35%</div>
+          <div style="width:2px;height:14px;background:var(--ntu);margin-top:2px;"></div>
+        </div>
+        <!-- Pointer: after GearGhost ~50% -->
+        <div style="position:absolute;left:50%;top:-8px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:1px;">
+          <div style="font-size:9px;font-weight:900;color:#C9A227;white-space:nowrap;background:#fff;padding:1px 5px;border-radius:999px;border:1.5px dashed #C9A227;">${zh?"⚠️ 若收購後":"⚠️ After Acq."} ~50%</div>
+          <div style="width:2px;height:14px;background:#C9A227;margin-top:2px;"></div>
+        </div>
+        <!-- Arrow from 35% to 50% -->
+        <div style="position:absolute;top:50%;left:calc(33% + 8px);width:calc(50% - 33% - 16px);height:2px;background:#C9A227;transform:translateY(-50%);">
+          <div style="position:absolute;right:-4px;top:-4px;width:0;height:0;border-left:8px solid #C9A227;border-top:5px solid transparent;border-bottom:5px solid transparent;"></div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:0 2px;margin-top:3px;">
+        <div style="font-size:9px;color:#7C3AED;font-weight:700;">${zh?"完全不相關":"Fully Unrelated"}</div>
+        <div style="font-size:9px;color:#C9A227;font-weight:700;text-align:center;">${zh?"⬆ 收購壓力往右移動，但組織設計還沒跟上":"⬆ Acquisition pushes right, but org design hasn't caught up"}</div>
+        <div style="font-size:9px;color:#991B1B;font-weight:700;">${zh?"高度相關":"Highly Related"}</div>
+      </div>
+    </div>
+
+    <!-- ── CALLOUT: HQ MISMATCH TRAP ── -->
+    <div class="callout red" style="margin-top:4px;">
+      <p class="p" style="font-size:13px;"><strong>${zh?"⚠️ 「混搭陷阱」（Mix-and-Match Trap）：":"⚠️ The 'Mix-and-Match Trap':"}</strong><br/>
+      ${zh?`當佃製作所考慮收購 GearGhost 時，光譜位置從 ~35% 被推向 ~50%——但 HQ 的角色並未因此改變。佃社長仍以「個人協調 + 品質文化」的方式管理，卻期待統整三個完全不同市場（火箭、醫療、農機）的業務。
+      <br/><br/>
+      Anand & Collis 的診斷：<em>若要成功走向 50% 位置，HQ 必須先建立「管理流程複製與移轉」的能力（Danaher 模式）——否則光移動到新位置，卻沿用舊管理方式，是光譜位置與 HQ 角色的嚴重不匹配，也是最常見的多角化失敗原因。</em>`:`When Tsukuda considers acquiring GearGhost, its spectrum position is pushed from ~35% toward ~50% — but the HQ role has not changed. Tsukuda still manages through 'personal coordination + quality culture,' yet expects to integrate three completely different markets (rockets, medical, ag-machinery).
+      <br/><br/>
+      Anand & Collis's diagnosis: <em>To successfully operate at the 50% position, HQ must first build 'management process replication and transfer' capabilities (Danaher model) — otherwise moving to a new position while using old management practices creates a severe HQ role mismatch, which is the most common cause of diversification failure.</em>`}</p>
+    </div>
+  </div>
+
+  <hr class="sep"/>
+
+  <!-- Mini-Game 2: Strategy Continuum Placement -->
+  <div class="gameBox">
+    <div class="gameTitle">🎮 <span class="gameTag">Mini-Game 2</span> ${zh?"策略光譜定位器：佃製作所在哪裡？":"Strategy Continuum Placer: Where is Tsukuda?"}</div>
+    <div class="gameInstr">${zh?`拖動下方的滑桿，將佃製作所當前（火箭+醫療，S1 結束後）定位在策略光譜上，然後想想：<em>進入農業機械後，位置應該往哪個方向移動？為什麼？</em><br/>注意：連續體位置本身決定了「正確的組織設計」——沒有正確答案，只有一致性是否成立的問題。`:`Drag the slider below to place Tsukuda (post-S1, rocket + medical) on the strategy continuum. Then think: <em>After entering agricultural machinery, in which direction should the position move? Why?</em><br/>Note: The continuum position itself determines 'the correct organizational design' — there's no right answer, only the question of whether internal consistency holds.`}</div>
+    <div style="padding:0 20px;">
+      <div class="continuumWrap">
+        <div class="continuumBar" id="contBar">
+          <div class="continuumMarker" id="contMarker" style="left:${pos}%;">佃</div>
+        </div>
+        <div class="continuumLabels">
+          <span>${zh?"完全不相關":"Highly Unrelated"}</span>
+          <span style="text-align:center;">${zh?"中段（管理流程共享）":"Mid (Process Sharing)"}</span>
+          <span>${zh?"高度相關":"Highly Related"}</span>
+        </div>
+      </div>
+      <div class="continuumExamples">
+        ${["主權財富基金","Berkshire","Danaher","Disney","Clorox"].map((n,i)=>`<div class="contEx${Math.abs(pos-i*25)<13?' highlighted':''}">${n}</div>`).join("")}
+      </div>
+    </div>
+    <div id="contFeedback" style="margin-top:12px;padding:12px;border-radius:12px;background:rgba(0,43,92,.04);border:1px solid var(--line);font-size:13px;line-height:1.6;">
+      ${zh?`<strong>目前位置（${pos}%）：</strong> ${pos<20?'完全不相關端——主要透過財務治理創造價值，各業務幾乎獨立':pos<40?'偏不相關——存在一些流程或治理上的協同，但業務間資源分享有限':pos<60?'中段——有顯著的管理流程共享（如Danaher模式），但產品/市場協同仍然有限':pos<80?'偏相關——業務間有實質的資源共享，但仍保留各業務一定自主性':'高度相關——像Clorox，共享品牌、通路、供應鏈，總部深入參與業務運作'}。<br/>
+      <em>思考：進入農業機械後，這個位置應該如何調整？組織設計需要做出哪些對應的改變？</em>`:`<strong>Current position (${pos}%):</strong> ${pos<20?'Highly unrelated end — creates value primarily through financial governance; businesses are nearly independent':pos<40?'Leaning unrelated — some process or governance synergies, but limited resource sharing across businesses':pos<60?'Mid-continuum — significant management process sharing (like Danaher model), but product/market synergies remain limited':pos<80?'Leaning related — substantial resource sharing across businesses, but individual business autonomy maintained':'Highly related — like Clorox, shares brand, channels, supply chain; HQ deeply involved in business operations'}.<br/>
+      <em>Think: After entering agricultural machinery, how should this position adjust? What corresponding organizational design changes are needed?</em>`}
+    </div>
+    <div class="gameBtnRow">
+      <button class="gameBtn" id="contRevealBtn">${zh?"查看討論框架":"View Discussion Framework"}</button>
+    </div>
+    <div class="gameReveal" id="contReveal">
+      <strong>${zh?"Anand & Collis 的診斷框架：":"Anand & Collis Diagnostic Framework:"}</strong><br/><br/>
+      ${zh?`<strong>佃製作所（S1 後，火箭+醫療）大約在連續體的 30-45% 位置（偏左的中段）：</strong><br/>
+      • 業務間有核心製造能力共享（精密加工），但客戶市場完全不同<br/>
+      • 總部規模很小，主要是佃社長個人協調——接近 Danaher 模式，但更原始<br/>
+      • 治理主要靠文化（品質不妥協）而非財務指標<br/><br/>
+      <strong>加入農業機械後的困境（50-60% 位置的需求）：</strong><br/>
+      • 農業機械需要不同的銷售通路、不同的售後服務模式、不同的認證體系<br/>
+      • 如果用相同總部和相同管理方式，則意味著總部必須具備農機市場的知識——但現在沒有<br/>
+      • Anand & Collis 的警告：<em>不要「混搭」連續體上不同位置的管理做法</em>，這是最常見的失敗原因之一`:`<strong>Tsukuda (post-S1, rocket + medical) is approximately at 30-45% on the continuum (left-leaning mid-range):</strong><br/>
+      • Core manufacturing capability sharing across businesses (precision machining), but customer markets entirely different<br/>
+      • Very small HQ — mainly President Tsukuda's personal coordination — close to Danaher model but more primitive<br/>
+      • Governance relies primarily on culture ('no quality compromise') rather than financial metrics<br/><br/>
+      <strong>Challenge after adding agricultural machinery (demands 50-60% position):</strong><br/>
+      • Agricultural machinery requires different sales channels, different after-sales service models, different certification systems<br/>
+      • If managed with the same HQ and same management approach, HQ must have ag-market knowledge — which it currently lacks<br/>
+      • Anand & Collis warning: <em>Never 'mix and match' management practices from different continuum positions</em> — this is one of the most common failure causes`}
+    </div>
+  </div>
+
+  <hr class="sep"/>
+  ${quizCard({
+    key:"q_t2_1",
+    q:"根據 Anand & Collis，多事業企業最常犯的錯誤是？",
+    q_en:"According to Anand & Collis, the most common mistake made by multibusiness firms is?",
+    opts:[
+      ["過度投資研發，忽略了現有業務的財務績效","Over-investing in R&D, neglecting existing business financial performance"],
+      ["過度執著於調整組合組成（改變 w），而忽略了提升各業務個別績效（改變 r）","Over-fixated on changing portfolio composition (changing w), neglecting improving individual business performance (changing r)"],
+      ["總部規模太大，干預各業務的日常決策","HQ too large, interfering with daily decisions of individual businesses"],
+      ["過度追求協同效益，而協同效益永遠無法實現","Over-pursuing synergies that can never be realized"]
+    ],
+    ans:1,
+    exp:"答案 B。Anand & Collis 的核心論點：公司的策略潛力（scope）決定了上限，但能否實現取決於「對的管理流程是否讓業務績效（r）真正提升」。過多關注組合組成是因為它可見、立即、有衝擊感，但長期價值來自 r 的提升——買對業務容易，讓業務變好難。",
+    exp_en:"Answer B. Anand & Collis's core argument: A firm's strategic potential (scope) sets the ceiling, but realization depends on 'whether the right management processes truly improve business performance (r).' Too much focus on portfolio composition is tempting because it's visible, immediate, and impactful, but long-term value comes from improving r — buying the right business is easy; making businesses better is hard."
+  })}`;
+}
+
+// ════════════════════════════════════════════
+//  SECTION T3 — Pedersen + Belderbos: M-P & Growth Options
+// ════════════════════════════════════════════
+function viewT3(){
+  const zh=ST.lang==="zh";
+  const shapes=[
+    {id:"linear",label:zh?"正向線性":"Positive Linear",
+      svg:`<svg width="80" height="50" viewBox="0 0 80 50"><polyline points="5,45 75,5" fill="none" stroke="#1A4A8B" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+      desc:zh?"多角化程度越高，績效持續正向提升":"As diversification increases, performance continuously improves"},
+    {id:"invU",label:zh?"倒 U 型":"Inverted-U",
+      svg:`<svg width="80" height="50" viewBox="0 0 80 50"><path d="M5,45 Q40,2 75,45" fill="none" stroke="#7C3AED" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+      desc:zh?"適度多角化績效最佳，過高則下降":"Moderate diversification optimal; too much reduces performance"},
+    {id:"sshape",label:zh?"S 型":"S-shaped",
+      svg:`<svg width="80" height="50" viewBox="0 0 80 50"><path d="M5,28 C10,28 15,38 22,40 C29,42 34,35 40,20 C46,6 52,4 58,8 C64,12 68,22 75,28" fill="none" stroke="#C9A227" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+      desc:zh?"三個階段：先下降、中段上升、最終再次下降":"Three phases: initial decline, mid-range increase, eventual decline"},
+    {id:"norel",label:zh?"無顯著關係":"No Significant Relation",
+      svg:`<svg width="80" height="50" viewBox="0 0 80 50"><line x1="5" y1="25" x2="75" y2="25" stroke="#64748B" stroke-width="2" stroke-dasharray="6,3"/></svg>`,
+      desc:zh?"多角化程度與績效之間無統計顯著關係":"No statistically significant relationship between diversification and performance"},
+    {id:"idio",label:zh?"企業特定最適點":"Firm-Specific Optimum",
+      svg:`<svg width="80" height="50" viewBox="0 0 80 50"><path d="M5,45 Q25,25 40,20 T75,30" fill="none" stroke="#15803d" stroke-width="2" stroke-dasharray="4,2"/><circle cx="40" cy="20" r="4" fill="#C9A227"/></svg>`,
+      desc:zh?"每家企業有自己的最適多角化程度（Hennart 2011）":"Each firm has its own idiosyncratic optimal diversification level (Hennart 2011)"},
+    {id:"align",label:zh?"對齊決定效果":"Alignment Determines Effect",
+      svg:`<svg width="80" height="50" viewBox="0 0 80 50"><path d="M5,45 Q40,25 75,5" fill="none" stroke="#0E7490" stroke-width="2" stroke-dasharray="2,2"/><text x="35" y="42" font-size="9" fill="#0E7490">fit↑</text></svg>`,
+      desc:zh?"多角化本身不決定績效，多角化程度與企業屬性的對齊才決定（Belderbos et al.）":"Diversification itself doesn't determine performance; alignment of diversification level with firm attributes does (Belderbos et al.)"}
+  ];
+  const sel=ST.mpChoice;
+  return `
+  <div class="sectionHead">
+    <div>
+      <h1 class="h1" style="color:var(--t3)">${zh?"T3｜Pedersen et al. (2023) + Belderbos et al. (2019): 多角化-績效關係的本質":"T3 | Pedersen et al. (2023) + Belderbos et al. (2019): The Nature of the Diversification-Performance Relationship"}</h1>
+      <p class="sub">${zh?"多角化真的能提升績效嗎？什麼條件下多角化能帶來「成長選擇權」價值？（14 min）":"Does diversification truly enhance performance? Under what conditions can diversification create 'growth option' value? (14 min)"}</p>
+    </div>
+    <div class="tag" style="border-color:rgba(91,33,182,.30);background:rgba(91,33,182,.08);color:var(--t3);">🌐 T3 · 14 min</div>
+  </div>
+  ${timeTags("t3")}
+
+  <!-- ── T3 Section A: Pedersen ── -->
+  <div class="card" style="margin-bottom:14px;border-top:4px solid var(--t3);">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+      <div style="width:36px;height:36px;border-radius:10px;background:rgba(91,33,182,.12);display:grid;place-items:center;font-size:18px;">📖</div>
+      <div>
+        <div style="font-weight:900;font-size:16px;color:var(--t3);">${zh?"Reading 1｜Pedersen & Tallman (2023)":"Reading 1 | Pedersen & Tallman (2023)"}</div>
+        <div style="font-size:12px;color:var(--muted);">${zh?"Global Strategy Journal · M-P 關係的死局與出路":"Global Strategy Journal · The M-P Relationship Deadlock & Way Forward"}</div>
+      </div>
+    </div>
+
+    <div class="callout orange">
+      <p class="p" style="font-size:14px;"><strong>${zh?"核心問題：":"Core problem:"}</strong> ${zh?"數十年、數百篇研究試圖確定多國化程度（M）與績效（P）之間的關係，結果卻相互矛盾、無法收斂。M-P 關係的形狀究竟是正向線性、倒U型、S型，還是根本不存在普遍規律？":"Decades of hundreds of studies trying to establish the relationship between multinationality (M) and performance (P) have produced contradictory, non-convergent results. Is the M-P shape positive-linear, inverted-U, S-shaped, or simply non-existent as a general rule?"}</p>
+    </div>
+
+    <div class="grid2" style="margin-top:12px;gap:10px;">
+      <div style="border-left:4px solid #1A4A8B;border-radius:0 10px 10px 0;padding:10px 14px;background:rgba(26,74,139,.05);">
+        <div style="font-weight:900;font-size:13px;color:#1A4A8B;margin-bottom:5px;">🔬 ${zh?"方法論陣營（Contractor 2012）":"Methodological Camp (Contractor 2012)"}</div>
+        <div class="sm">${zh?"問題出在<em>測量</em>：M 和 P 都是多維構念，不同測量方式得到不同形狀。解方：更精確的測量、更嚴謹的統計方法（內生性處理、縱向資料、自然實驗）。":"Problem is <em>measurement</em>: both M and P are multidimensional constructs; different choices yield different shapes. Solution: better measurement and more rigorous statistical methods (endogeneity correction, longitudinal data, natural experiments)."}</div>
+      </div>
+      <div style="border-left:4px solid #7C3AED;border-radius:0 10px 10px 0;padding:10px 14px;background:rgba(124,58,237,.05);">
+        <div style="font-weight:900;font-size:13px;color:#7C3AED;margin-bottom:5px;">🧩 ${zh?"理論陣營（Hennart 2011）":"Theoretical Camp (Hennart 2011)"}</div>
+        <div class="sm">${zh?"問題出在<em>理論</em>：企業不以「多國化程度」為決策變數，而是決定如何最好地利用企業特定優勢（FSA）；多國化程度只是結果。因此根本不存在「普遍最適的多國化程度」。":"Problem is <em>theoretical</em>: firms don't decide 'how multinational to be' — they decide how best to exploit firm-specific advantages (FSA); multinationality is only a result. Thus there is no 'universally optimal multinationality level.'"}</div>
+      </div>
+    </div>
+
+    <div class="callout green" style="margin-top:12px;">
+      <p class="p" style="font-size:13px;"><strong>${zh?"Pedersen & Tallman 的結論：":"Pedersen & Tallman's conclusion:"}</strong><br/>
+      ${zh?"更多的同類型研究不會解決問題。需要<em>微觀基礎取向（Micro-Foundations Approach）</em>：深入研究企業如何<em>實際</em>做出多角化決策，以及中間過程如何影響績效，而非直接測試 M→P 統計關係。<br/>對佃製作所而言：<strong>問題不是「多角化多少」，而是「為什麼多角化、如何管理多角化」。</strong>":"More of the same research won't resolve the deadlock. What's needed is a <em>micro-foundations approach</em>: deep study of how firms <em>actually</em> make diversification decisions and how intermediate processes affect performance, not directly testing the M→P statistical link.<br/>For Tsukuda: <strong>the question isn't 'how much to diversify' but 'why diversify and how to manage it.'</strong>"}</p>
+    </div>
+
+    <div style="font-weight:900;font-size:13px;color:var(--t3);margin:14px 0 8px;">📊 ${zh?"兩個競爭的理論模型（Pedersen & Tallman 2023, Figure 1 & 2）":"Two Competing Theoretical Models (Pedersen & Tallman 2023, Figure 1 & 2)"}</div>
+    <div class="grid2" style="gap:12px;">
+      <div style="background:rgba(26,74,139,.03);border:1px solid rgba(26,74,139,.18);border-radius:12px;padding:12px;">
+        <div style="font-weight:800;font-size:12px;color:#1A4A8B;margin-bottom:8px;text-align:center;">${zh?"Figure 1：普遍 M-P 關係模型（方法論陣營）":"Figure 1: Universal M-P Model (Methodological Camp)"}</div>
+        <svg viewBox="0 0 300 185" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;font-family:var(--sans);">
+          <defs><marker id="pA" viewBox="0 0 7 7" refX="5.5" refY="3.5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#555"/></marker></defs>
+          <rect x="8" y="12" width="110" height="48" rx="8" fill="rgba(26,74,139,.10)" stroke="#1A4A8B" stroke-width="1.5"/>
+          <text x="63" y="32" text-anchor="middle" font-size="10" font-weight="700" fill="#1A4A8B">${zh?"外部因素":"External Factors"}</text>
+          <text x="63" y="48" text-anchor="middle" font-size="9" fill="#475569">${zh?"母國、地主國、產業特性":"Home/host country, industry"}</text>
+          <rect x="8" y="125" width="110" height="48" rx="8" fill="rgba(123,47,0,.10)" stroke="#7B2F00" stroke-width="1.5"/>
+          <text x="63" y="145" text-anchor="middle" font-size="10" font-weight="700" fill="#7B2F00">${zh?"內部因素":"Internal Factors"}</text>
+          <text x="63" y="161" text-anchor="middle" font-size="9" fill="#475569">${zh?"FSA、動機、策略架構":"FSA, motives, strategy/structure"}</text>
+          <rect x="148" y="68" width="82" height="40" rx="8" fill="rgba(91,33,182,.10)" stroke="#5B21B6" stroke-width="2"/>
+          <text x="189" y="84" text-anchor="middle" font-size="10" font-weight="800" fill="#5B21B6">${zh?"多國化程度":"Multinationality"}</text>
+          <text x="189" y="100" text-anchor="middle" font-size="9" fill="#5B21B6">(M)</text>
+          <rect x="252" y="68" width="40" height="40" rx="8" fill="rgba(21,128,61,.10)" stroke="#15803d" stroke-width="2"/>
+          <text x="272" y="93" text-anchor="middle" font-size="10" font-weight="800" fill="#15803d">P</text>
+          <line x1="118" y1="36" x2="148" y2="78" stroke="#1A4A8B" stroke-width="1.6" marker-end="url(#pA)"/>
+          <line x1="118" y1="149" x2="148" y2="105" stroke="#7B2F00" stroke-width="1.6" marker-end="url(#pA)"/>
+          <line x1="230" y1="88" x2="252" y2="88" stroke="#5B21B6" stroke-width="2" marker-end="url(#pA)"/>
+          <path d="M118 22 Q278 5 272 68" fill="none" stroke="#1A4A8B" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#pA)"/>
+          <path d="M118 163 Q278 180 272 108" fill="none" stroke="#7B2F00" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#pA)"/>
+          <text x="195" y="16" text-anchor="middle" font-size="8" fill="#94A3B8">${zh?"調節／控制":"moderating/control"}</text>
+        </svg>
+        <p style="font-size:10px;color:var(--muted);text-align:center;margin-top:4px;">${zh?"外部與內部因素為<strong>外生</strong>調節變數":"External/internal factors are <strong>exogenous</strong> moderators"}</p>
+      </div>
+      <div style="background:rgba(91,33,182,.03);border:1px solid rgba(91,33,182,.18);border-radius:12px;padding:12px;">
+        <div style="font-weight:800;font-size:12px;color:#5B21B6;margin-bottom:8px;text-align:center;">${zh?"Figure 2：拒絕普遍 M-P 模型（理論陣營）":"Figure 2: Rejection of Universal M-P (Theoretical Camp)"}</div>
+        <svg viewBox="0 0 300 185" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;font-family:var(--sans);">
+          <defs><marker id="pB" viewBox="0 0 7 7" refX="5.5" refY="3.5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#555"/></marker></defs>
+          <rect x="8" y="12" width="105" height="46" rx="8" fill="rgba(123,47,0,.10)" stroke="#7B2F00" stroke-width="1.5"/>
+          <text x="60" y="30" text-anchor="middle" font-size="10" font-weight="700" fill="#7B2F00">${zh?"內部因素":"Internal Factors"}</text>
+          <text x="60" y="46" text-anchor="middle" font-size="9" fill="#475569">${zh?"FSA、動機、策略":"FSA, motives, strategy"}</text>
+          <rect x="8" y="127" width="105" height="46" rx="8" fill="rgba(26,74,139,.10)" stroke="#1A4A8B" stroke-width="1.5"/>
+          <text x="60" y="145" text-anchor="middle" font-size="10" font-weight="700" fill="#1A4A8B">${zh?"外部因素":"External Factors"}</text>
+          <text x="60" y="161" text-anchor="middle" font-size="9" fill="#475569">${zh?"母國、地主國、產業":"Home/host, industry"}</text>
+          <rect x="132" y="62" width="90" height="38" rx="8" fill="rgba(201,162,39,.15)" stroke="#C9A227" stroke-width="2"/>
+          <text x="177" y="77" text-anchor="middle" font-size="10" font-weight="800" fill="#7C5500">${zh?"業務機會":"Business Opp."}</text>
+          <text x="177" y="92" text-anchor="middle" font-size="8.5" fill="#7C5500">${zh?"（內生 Endogenous）":"(Endogenous)"}</text>
+          <rect x="143" y="118" width="68" height="34" rx="8" fill="rgba(91,33,182,.10)" stroke="#5B21B6" stroke-width="2"/>
+          <text x="177" y="140" text-anchor="middle" font-size="10" font-weight="800" fill="#5B21B6">${zh?"多國化程度 (M)":"Multinationality (M)"}</text>
+          <rect x="242" y="76" width="50" height="76" rx="8" fill="rgba(21,128,61,.10)" stroke="#15803d" stroke-width="2"/>
+          <text x="267" y="118" text-anchor="middle" font-size="10" font-weight="800" fill="#15803d">P</text>
+          <line x1="113" y1="35" x2="132" y2="74" stroke="#7B2F00" stroke-width="1.6" marker-end="url(#pB)"/>
+          <line x1="113" y1="150" x2="132" y2="92" stroke="#1A4A8B" stroke-width="1.6" marker-end="url(#pB)"/>
+          <line x1="168" y1="100" x2="162" y2="118" stroke="#C9A227" stroke-width="2" marker-end="url(#pB)"/>
+          <line x1="186" y1="118" x2="192" y2="100" stroke="#5B21B6" stroke-width="2" marker-end="url(#pB)"/>
+          <line x1="222" y1="80" x2="242" y2="95" stroke="#C9A227" stroke-width="1.5" marker-end="url(#pB)"/>
+          <line x1="211" y1="135" x2="242" y2="130" stroke="#5B21B6" stroke-width="1.5" marker-end="url(#pB)"/>
+        </svg>
+        <p style="font-size:10px;color:var(--muted);text-align:center;margin-top:4px;">${zh?"M 為<strong>內生</strong>變數；業務機會是真正驅動力，雙向因果":"M is <strong>endogenous</strong>; business opportunities are true driver; two-way causality"}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── T3 Section B: Belderbos ── -->
+  <div class="card" style="margin-bottom:14px;border-top:4px solid var(--c1);">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+      <div style="width:36px;height:36px;border-radius:10px;background:rgba(14,116,144,.12);display:grid;place-items:center;font-size:18px;">📖</div>
+      <div>
+        <div style="font-weight:900;font-size:16px;color:var(--c1);">${zh?"Reading 2｜Belderbos, Tong & Wu (2019)":"Reading 2 | Belderbos, Tong & Wu (2019)"}</div>
+        <div style="font-size:12px;color:var(--muted);">${zh?"Strategic Management Journal · 多國投資與成長選擇權的價值":"Strategic Management Journal · Multinational Investment and the Value of Growth Options"}</div>
+      </div>
+    </div>
+
+    <div class="callout teal">
+      <p class="p" style="font-size:14px;"><strong>${zh?"關鍵命題：":"Key proposition:"}</strong><br/>
+      ${zh?"多角化投資的價值不僅在於<em>當前現金流</em>，更在於所創造的<strong>成長選擇權（Growth Options）</strong>——未來可以選擇是否執行的投資機會。這些選擇權只在特定條件組合下才真正有價值。":"The value of diversification investment lies not just in <em>current cash flows</em>, but in the <strong>growth options</strong> created — future investment opportunities the firm can choose to exercise or not. These options only have genuine value under a specific combination of conditions."}</p>
+    </div>
+
+    <div class="grid3" style="margin-top:12px;gap:10px;">
+      ${[
+        ["#0E7490","rgba(14,116,144,.06)","①",
+          zh?"市場不確定性高":"High Market Uncertainty",
+          zh?"高不確定性市場中，選擇權的「等待價值」顯著正向——可等到有利信號後再執行。<br/><em>農機市場符合此條件：智慧農業技術快速演化，市場格局仍未定型。</em>":
+          "In high-uncertainty markets, the option's 'wait-and-see value' is significantly positive.<br/><em>Ag-machinery qualifies: smart farming tech evolves rapidly; market structure still unsettled.</em>"],
+        ["#7C3AED","rgba(91,33,182,.06)","②",
+          zh?"採用漸進式投資策略":"Incremental Investment Strategy",
+          zh?"兩種漸進方式保存選擇權價值：<br/>• <strong>限制股權比例</strong>（合資 > 全資）<br/>• <strong>限制初始投資規模</strong>（小步進入，保留擴大空間）<br/>全力押注反而<em>消滅</em>選擇權價值。":
+          "Two approaches preserve option value:<br/>• <strong>Limit equity stake</strong> (JV > wholly owned)<br/>• <strong>Limit initial investment size</strong> (small entry, preserve scale-up room)<br/>Going all-in actually <em>destroys</em> option value."],
+        ["#C9A227","rgba(201,162,39,.06)","③",
+          zh?"漸進策略與不確定性對齊":"Alignment: Strategy ↔ Uncertainty",
+          zh?"高不確定性市場 → 採漸進策略（小股權、小規模）；<br/>低不確定性市場 → 可加大承諾。<br/><strong>「對齊」</strong>才是成長選擇權價值的真正關鍵。":
+          "High-uncertainty market → incremental (small equity, small scale);<br/>Low-uncertainty market → larger commitment appropriate.<br/><strong>'Alignment'</strong> is the true key to growth option value."]
+      ].map(([col,bg,num,t,d])=>`<div style="border:1.5px solid ${col};border-radius:12px;padding:12px;background:${bg};">
+        <div style="font-size:24px;font-weight:900;color:${col};margin-bottom:4px;">${num}</div>
+        <div style="font-weight:900;font-size:13px;color:${col};margin-bottom:6px;">${t}</div>
+        <div style="font-size:12px;color:var(--ink);line-height:1.55;">${d}</div>
+      </div>`).join("")}
+    </div>
+
+    <div style="font-weight:900;font-size:13px;color:var(--c1);margin:14px 0 8px;">📊 ${zh?"成長選擇權的調節效果圖（Belderbos et al. 2019 Figure 1 & 2 改編）":"Moderating Effects on Growth Option Value (adapted from Belderbos et al. 2019 Fig. 1 & 2)"}</div>
+    <div class="grid2" style="gap:12px;">
+      <div style="background:rgba(14,116,144,.04);border:1px solid rgba(14,116,144,.2);border-radius:12px;padding:12px;">
+        <div style="font-weight:800;font-size:12px;color:#0E7490;margin-bottom:8px;text-align:center;">${zh?"股權比例 × 多國化程度對成長選擇權的邊際效果":"Equity Stake × Multinationality on Growth Option Value"}</div>
+        <svg viewBox="0 0 260 172" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+          <defs><marker id="xa1" viewBox="0 0 7 6" refX="6" refY="3" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#475569"/></marker></defs>
+          <line x1="38" y1="128" x2="238" y2="128" stroke="#475569" stroke-width="1.5" marker-end="url(#xa1)"/>
+          <line x1="38" y1="128" x2="38" y2="18" stroke="#475569" stroke-width="1.5" marker-end="url(#xa1)"/>
+          <text x="138" y="160" text-anchor="middle" font-size="9" fill="#475569">${zh?"股權比例（0% → 100%）":"Equity Stake (0% → 100%)"}</text>
+          <text x="14" y="74" text-anchor="middle" font-size="8.5" fill="#475569" transform="rotate(-90 14 74)">${zh?"成長選擇權邊際效果":"Marginal Effect on GVO"}</text>
+          <text x="44" y="122" font-size="8" fill="#94A3B8">0%</text>
+          <text x="212" y="122" font-size="8" fill="#94A3B8">100%</text>
+          <line x1="38" y1="85" x2="238" y2="85" stroke="#D7DEE9" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="242" y="87" font-size="8" fill="#94A3B8">0</text>
+          <path d="M43,30 C70,36 100,52 135,68 T192,84 T235,86" fill="none" stroke="#0E7490" stroke-width="2.8" stroke-linecap="round"/>
+          <text x="46" y="25" font-size="9" font-weight="700" fill="#0E7490">${zh?"高不確定性市場":"High Uncertainty"}</text>
+          <path d="M43,85 L235,86" fill="none" stroke="#94A3B8" stroke-width="2" stroke-dasharray="5,3"/>
+          <text x="46" y="98" font-size="9" fill="#94A3B8">${zh?"低不確定性市場":"Low Uncertainty"}</text>
+          <circle cx="54" cy="33" r="5" fill="#C9A227" stroke="#002B5C" stroke-width="1.5"/>
+          <line x1="54" y1="38" x2="54" y2="128" stroke="#C9A227" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="58" y="29" font-size="8" fill="#7C5500">${zh?"最大值（股權低）":"Max (low equity)"}</text>
+          <text x="138" y="60" text-anchor="middle" font-size="8.5" fill="#0E7490" font-style="italic">${zh?"股權比例↑ → 邊際效果↓":"Equity stake ↑ → Effect ↓"}</text>
+        </svg>
+        <p style="font-size:10px;color:var(--muted);text-align:center;margin-top:2px;">${zh?"合資（低股權）進入高不確定性市場時，成長選擇權價值最大":"Growth option value maximized via JV (low equity) entry into high-uncertainty markets"}</p>
+      </div>
+      <div style="background:rgba(91,33,182,.04);border:1px solid rgba(91,33,182,.2);border-radius:12px;padding:12px;">
+        <div style="font-weight:800;font-size:12px;color:#5B21B6;margin-bottom:8px;text-align:center;">${zh?"投資規模 × 多國化程度對成長選擇權的邊際效果":"Investment Size × Multinationality on Growth Option Value"}</div>
+        <svg viewBox="0 0 260 172" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+          <defs><marker id="xa2" viewBox="0 0 7 6" refX="6" refY="3" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#475569"/></marker></defs>
+          <line x1="38" y1="128" x2="238" y2="128" stroke="#475569" stroke-width="1.5" marker-end="url(#xa2)"/>
+          <line x1="38" y1="128" x2="38" y2="18" stroke="#475569" stroke-width="1.5" marker-end="url(#xa2)"/>
+          <text x="138" y="160" text-anchor="middle" font-size="9" fill="#475569">${zh?"投資規模（小 → 大）":"Investment Size (Small → Large)"}</text>
+          <text x="14" y="74" text-anchor="middle" font-size="8.5" fill="#475569" transform="rotate(-90 14 74)">${zh?"成長選擇權邊際效果":"Marginal Effect on GVO"}</text>
+          <text x="44" y="122" font-size="8" fill="#94A3B8">${zh?"小":"Small"}</text>
+          <text x="210" y="122" font-size="8" fill="#94A3B8">${zh?"大":"Large"}</text>
+          <line x1="38" y1="85" x2="238" y2="85" stroke="#D7DEE9" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="242" y="87" font-size="8" fill="#94A3B8">0</text>
+          <path d="M43,32 C68,38 95,55 128,70 T175,84 T225,86" fill="none" stroke="#5B21B6" stroke-width="2.8" stroke-linecap="round"/>
+          <text x="46" y="27" font-size="9" font-weight="700" fill="#5B21B6">${zh?"高不確定性市場":"High Uncertainty"}</text>
+          <line x1="170" y1="83" x2="170" y2="130" stroke="#C9A227" stroke-width="1.8" stroke-dasharray="5,3"/>
+          <text x="170" y="150" text-anchor="middle" font-size="8.5" fill="#7C5500" font-weight="700">${zh?"臨界點":"Threshold"}</text>
+          <path d="M43,85 L225,86" fill="none" stroke="#94A3B8" stroke-width="2" stroke-dasharray="5,3"/>
+          <text x="46" y="98" font-size="9" fill="#94A3B8">${zh?"低不確定性市場":"Low Uncertainty"}</text>
+          <text x="100" y="55" text-anchor="middle" font-size="8.5" fill="#5B21B6" font-style="italic">${zh?"規模↑ → 效果↓":"Size ↑ → Effect ↓"}</text>
+        </svg>
+        <p style="font-size:10px;color:var(--muted);text-align:center;margin-top:2px;">${zh?"投資規模超過臨界點後，成長選擇權邊際效果趨近於零":"Growth option effect approaches zero once investment size exceeds the threshold"}</p>
+      </div>
+    </div>
+
+    <div style="margin-top:12px;background:rgba(201,162,39,.05);border:1px solid rgba(201,162,39,.25);border-radius:12px;padding:12px;">
+      <div style="font-weight:900;font-size:12px;color:#7C5500;margin-bottom:10px;text-align:center;">
+        🔗 ${zh?"國家層次對齊矩陣：對佃製作所農機進入決策的策略含義":"Country-Level Alignment Matrix: Strategic Implications for Tsukuda's Ag-Machinery Entry"}
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        ${[
+          ["rgba(21,128,61,.10)","#14532D","✅",
+            zh?"農機（高不確定性）× 小規模合資進入":"Ag-market (High Uncertainty) × Small-scale JV",
+            zh?"✔ 對齊：保留最大成長選擇權，限制下行風險":"✔ Aligned: preserves max growth options, limits downside"],
+          ["rgba(220,38,38,.08)","#991B1B","⚠️",
+            zh?"農機（高不確定性）× 全資大規模投入":"Ag-market (High Uncertainty) × Full-scale wholly owned",
+            zh?"✗ 不對齊：成長選擇權價值幾乎歸零":"✗ Misaligned: growth option value near zero"],
+          ["rgba(201,162,39,.10)","#7C5500","🤔",
+            zh?"火箭業務（低不確定性）× 充分承諾的長期合約":"Rocket (Low Uncertainty) × Full long-term commitment",
+            zh?"✔ 對齊：確定市場中充分承諾，穩定現金流":"✔ Aligned: full commitment in certain market = stable cash flows"],
+          ["rgba(14,116,144,.08)","#164E63","💡",
+            zh?"佃社長「試驗性小批量」決策評估：符合條件①②③":"Tsukuda's 'trial small-batch' decision: meets conditions ①②③",
+            zh?"進一步建議：採部分股權合作模式，強化選擇權結構":"Recommendation: add partial-equity JV to further strengthen option structure"]
+        ].map(([bg,col,ico,t,d])=>`<div style="background:${bg};border-left:3px solid ${col};border-radius:0 8px 8px 0;padding:9px 12px;">
+          <div style="font-weight:800;font-size:11px;color:${col};margin-bottom:3px;">${ico} ${t}</div>
+          <div style="font-size:10.5px;color:var(--muted);line-height:1.5;">${d}</div>
+        </div>`).join("")}
+      </div>
+    </div>
+  </div>
+  <hr class="sep"/>
+
+  <!-- Mini-Game 3: M-P Relationship Shape Picker -->
+  <div class="gameBox">
+    <div class="gameTitle">🎮 <span class="gameTag">Mini-Game 3</span> ${zh?"佃製作所的 M-P 形狀判斷":"Tsukuda's M-P Relationship Shape Assessment"}</div>
+    <div class="gameInstr">${zh?`如果把佃製作所的「多角化程度」（X軸）與「企業整體績效」（Y軸）的關係畫出來，你認為哪個形狀最能描述它的情況？<br/>
+    選擇後說明你的理由——沒有絕對的對錯，但要用本週閱讀的框架來支持你的選擇。`:`If you plotted Tsukuda's 'degree of diversification' (X-axis) against 'overall firm performance' (Y-axis), which shape best describes its situation?<br/>
+    After choosing, explain your reasoning — there's no absolute right or wrong, but support your choice with frameworks from this week's readings.`}</div>
+    <div class="mpShapes">
+      ${shapes.map(s=>`<div class="mpShape${sel===s.id?' chosen':''}" data-mpshape="${s.id}">
+        ${s.svg}
+        <div class="mpShapeLabel">${s.label}</div>
+        <div class="sm" style="font-size:11px;margin-top:4px;">${s.desc}</div>
+      </div>`).join("")}
+    </div>
+    ${sel?`<div class="gameReveal visible" style="display:block;">
+      <strong>${zh?"你選擇了：":"You chose:"}</strong> ${shapes.find(s=>s.id===sel)?.label}<br/><br/>
+      ${zh?`<strong>思考提示（不同選擇的邏輯）：</strong><br/>
+      • <strong>倒U型：</strong>如果認為佃製作所從0業務→火箭+醫療有正效益，但再加農機後協調成本超過效益<br/>
+      • <strong>S型：</strong>如果認為初始多角化（進入醫療）帶來負效益（學習成本），中段改善，最終再次下降<br/>
+      • <strong>無顯著關係：</strong>符合 Hennart 的觀點——績效由 FSA 的品質決定，不是多角化程度本身<br/>
+      • <strong>企業特定最適點：</strong>最接近 Pedersen et al. 的建議——佃製作所的最適點取決於其特定的資源、能力和市場機遇<br/>
+      • <strong>對齊決定效果：</strong>最接近 Belderbos et al.——進農機的績效效果取決於投資策略是否與不確定性對齊<br/><br/>
+      <em>→ 把你的選擇和理由寫入策略備忘錄第三節的風險評估部分。</em>`:`<strong>Thinking hints (logic for different choices):</strong><br/>
+      • <strong>Inverted-U:</strong> If you think Tsukuda benefited from 0 businesses → rocket+medical, but adding ag-machinery pushes coordination costs above benefits<br/>
+      • <strong>S-shaped:</strong> If you think initial diversification (entering medical) created negative returns (learning costs), then improved, then ultimately declined again<br/>
+      • <strong>No significant relation:</strong> Consistent with Hennart's view — performance determined by FSA quality, not diversification level itself<br/>
+      • <strong>Firm-specific optimum:</strong> Closest to Pedersen et al.'s suggestion — Tsukuda's optimum depends on its specific resources, capabilities, and market opportunities<br/>
+      • <strong>Alignment determines effect:</strong> Closest to Belderbos et al. — the performance effect of entering ag-machinery depends on whether investment strategy aligns with uncertainty<br/><br/>
+      <em>→ Incorporate your choice and reasoning into the risk assessment section of your strategy memo.</em>`}
+    </div>`:`<div style="font-size:13px;color:var(--muted);padding:10px;">${zh?"👆 先選擇一個形狀":"👆 Select a shape first"}</div>`}
+  </div>`;
+}
+
+// ════════════════════════════════════════════
+//  SECTION C1 — Drama Analysis S2 Ep1-3
+// ════════════════════════════════════════════
+function viewC1(){
+  const zh=ST.lang==="zh";
+  const tab=ST.sceneTabs?.c1||0;
+  const tabs=[
+    [zh?"Ep1：雙重壓力與田間發現":"Ep1: Dual Pressure & Farm Discovery",zh?"既有主業承壓、殿村農地、傳動問題":"Core Business Under Pressure; Farm Visit; Transmission Problem"],
+    [zh?"Ep2：合作還是捲入？GEAR GHOST 的機會與風險":"Ep2: Partner or Get Pulled In? GearGhost's Opportunity & Risk",zh?"傳動合作、專利訴訟、收購構想":"Transmission Partnership; Patent Lawsuit; Acquisition Idea"],
+    [zh?"Ep3：消息外流、信用審查與信任考驗":"Ep3: News Leaks, Credit Investigation & Trust",zh?"內通者疑雲、帝國重工審查、殿村的選擇":"Informant Suspicion; Teikoku Credit Check; Tonomura's Choice"],
+  ];
+  const scenes=[
+    {
+      summary_zh:`【S2 Ep1 核心情節】帝國重工高層釋出訊號：下一次發射後，火箭事業可能縮編甚至結束；同時重田登志行（主打廉價引擎「能動就夠」）搶走多個原本採購佃製作所的客戶。佃製作所面臨雙重壓力。帳務主任殿村直弘父親在農地突然病倒，佃航平與技術部長山崎光彥一同前往探望。航平在田間發現拖拉機作業不均，拆解後確認問題根源是傳動系統的閥門——恰好是佃製作所的核心技術。這個發現讓航平動了一個念頭：能不能開發出高性能的傳動系統？於是他帶隊去拜訪 GEAR GHOST——由前帝國重工工程師伊丹大與天才技術員島津裕共同創辦的新創公司，專注於把最優秀的零件整合成農機傳動系統。佃製作所的閥門技術打動了島津，也讓雙方展開合作的可能。`,
+      summary_en:`[S2 Ep1 Core Plot] At Teikoku, top management signals that the next launch may be the last for the current rocket effort. Simultaneously, Shigeta Toshiyuki (with his 'good-enough' cheap engine pitch) is poaching Tsukuda's existing engine clients. Tsukuda faces dual pressure on its core business. When accounting manager Tonomura Naohiro's father collapses at their family farm in Niigata, Tsukuda and technical director Yamazaki rush out. On the farm, Tsukuda notices the tractor leaves uneven furrows — after disassembly, he traces the root cause to the transmission valve system, precisely Tsukuda's core expertise. This observation sparks an idea: could Tsukuda develop a high-performance transmission? He visits Gear Ghost — a startup founded by former Teikoku engineer Itami Dai and genius engineer Shimazu Yutaka, focused on assembling the best components into agricultural transmissions. Shimazu is deeply impressed by Tsukuda's precision valve craftsmanship, and a partnership begins to take shape.`,
+      questions_zh:["佃航平在田間發現傳動閥門問題，這是一個 Anand & Collis 所說的「垂直介入提升現有業務績效」，還是「水平綜效拓展新業務」？差別在哪裡？","Wiersema & Beck 的「資源相關性」要求看技術流動模式。閥門製造→農機傳動系統，技術流動是否夠密切，讓這算是相關多角化？","GEAR GHOST 對佃製作所來說：是客戶、合作夥伴、收購對象，還是三者都有可能？不同定位對「相關性」分析有什麼影響？"],
+      questions_en:["Tsukuda discovers the valve problem on a farm visit — is this Anand & Collis's 'vertical: improve existing business performance' or 'horizontal: expand into new synergistic business'? What's the strategic difference?","Wiersema & Beck's 'resource relatedness' focuses on technology flow patterns. Is valve manufacturing → agricultural transmission close enough to qualify as related diversification?","For Tsukuda, is GearGhost a customer, a partner, or an acquisition target — or all three? How does each framing affect the relatedness analysis?"]
+    },
+    {
+      summary_zh:`【S2 Ep2 核心情節】帝國重工的火箭小型化研發遇挫，水原重治轉頭再次拜託佃製作所開發新型閥門系統；儘管時間緊迫、規格苛刻，佃在水原的誠意打動下接受委託。與此同時，GEAR GHOST 突然收到凱馬機械（Ke-Machinery）的專利侵害訴訟，求償高達 15 億日圓。伊丹與島津向外尋求出資支援，卻四處碰壁。佃航平找來顧問律師神谷修一，神谷建議走「交互授權（Cross-License）」策略：若找得到 Ke-Machinery 同樣侵犯了 Gear Ghost 的專利，雙方可互相抵消。全員投入反向調查，但最終找不到足夠證據，交互授權策略宣告失敗。在這個困境中，佃航平做出一個重大決定：他要收購（買下）GEAR GHOST，把它納入佃製作所旗下。這個想法遭到多名員工反對，但航平認為若只是旁觀，佃製作所終究會錯失技術與市場窗口。`,
+      summary_en:`[S2 Ep2 Core Plot] Teikoku's rocket miniaturization R&D hits a wall; Mizuhara returns to Tsukuda asking for a new valve system for the next launch. Despite the tight deadline and tough specs, Tsukuda accepts. Meanwhile, GearGhost suddenly receives a patent infringement suit from Ke-Machinery demanding 15 billion yen. Itami and Shimazu scramble for outside investors but find no takers. Tsukuda brings in lawyer Kamiya, who suggests a cross-license strategy: find a GearGhost patent that Ke-Machinery is also infringing, then offset the claims. The team works feverishly but cannot find sufficient evidence. Cross-license fails. Facing this dead end, President Tsukuda makes a bold move: he proposes to acquire GearGhost outright, folding it under Tsukuda's umbrella. Despite resistance from several employees, he persuades them with the argument that GearGhost's talent and passion is worth the risk. The idea reflects Tsukuda's instinct to protect the technology and the people behind it, but it also sharply increases commitment.`,
+      questions_zh:["「精度 vs. 耐用性」的技術需求差異，對應到 Wiersema & Beck 的哪個相關性維度？","以小搏大（新創 vs. 帝國重工）的競爭格局，如何影響佃製作所農機多角化的風險評估？","Belderbos et al. 的「漸進式投資策略」如何可以被應用到佃製作所的農機進入決策中？"],
+      questions_en:["Tsukuda tried to help GearGhost via a cross-license strategy. Which of Anand & Collis's four ways to add multibusiness value does this action represent?","Wiersema & Beck show that high-relatedness diversification helps improve individual business performance (r). But outright acquisition of GearGhost adds what additional risks beyond simple cooperation? Does this change the relatedness assessment?","Belderbos et al. show that incremental investment preserves more growth-option value than going all-in. Does Tsukuda's proposed acquisition look incremental, staged, or effectively all-in — and why?"]
+    },
+    {
+      summary_zh:`【S2 Ep3 核心情節】佃製作所完成新型火箭閥門，燃燒試驗順利通過。然而，收購 Gear Ghost 的消息卻悄悄外流。帝國重工的水原以「帝國重工內規」為由，要求若真要並購 Gear Ghost，佃製作所必須接受嚴格的信用調查。偏偏在審查當天，殿村的父親再度病危送醫，殿村無法出席，臨時由部屬迫田代理。審查官安本刁難迫田，要求提供事前未告知的長期事業計畫書；千鈞一髮之際，殿村趕回，從容遞上備齊的所有文件，化解危機。審查結果「無問題」。然而就在此時，神谷律師向伊丹、島津警告：Gear Ghost 的開發機密可能有人洩露給 Ke-Machinery——也就是說，最信任的人當中可能有一個內通者。`,
+      summary_en:`[S2 Ep3 Core Plot] Tsukuda's team completes the new rocket valve and passes the combustion test. But news of the GearGhost acquisition plan leaks. Mizuhara at Teikoku invokes internal rules: if Tsukuda proceeds with the acquisition, it must pass a formal credit investigation first. On the very day of the investigation, Tonomura's father is rushed to hospital — Tonomura can't attend, and deputy Sakoda must stand in. The auditor Yasumoto pressures Sakoda with demands for documents not previously specified. At the last moment, Tonomura rushes back with every document fully prepared, defusing the crisis. The investigation concludes: 'no problems.' But immediately after, lawyer Kamiya issues a grave warning to Itami and Shimazu: GearGhost's development intelligence may be leaking to Ke-Machinery — meaning there is likely an informant within their most trusted circle.`,
+      questions_zh:["殿村在最後一刻趕回的場景展示了什麼樣的「組織能力」？用 Anand & Collis 的框架，這算是哪一層次的價值創造——垂直提升個別業務績效，還是水平共享能力？","Ep3 末尾揭露有內通者。這對「收購 Gear Ghost」這個多角化決策意味著什麼？Pedersen et al. 所說的「多角化程度不是決策變數，而是其他決策的結果」如何在這裡體現？","Belderbos et al. 發現：在高不確定性市場中，漸進式投入通常比一次性全額承擔更能保留成長選擇權。佃的收購構想比較像分階段布局，還是一次押注？你會怎麼改寫進入方式？"],
+      questions_en:["The scene of Tonomura rushing back at the last moment demonstrates what kind of 'organizational capability'? Using Anand & Collis's framework, which layer of value creation does this represent — vertical improvement of individual business performance, or horizontal capability sharing?","The informant revealed at the end of Ep3 casts doubt on the GearGhost acquisition. How does this embody Pedersen et al.'s argument that 'multinationality level is not the decision variable — it's the outcome of other decisions'?","Belderbos et al. find that in high-uncertainty markets, incremental small-equity investment preserves more growth option value than full acquisition. Does Tsukuda's acquisition decision violate this principle? What should he do differently?"]
+    }
+  ];
+  const sc=scenes[tab];
+  return `
+  <div class="sectionHead">
+    <div>
+      <h1 class="h1" style="color:var(--c1)">${zh?"C1｜劇情分析：S2 Ep1-3 x 多角化框架":"C1 | Drama Analysis: S2 Ep1-3 × Diversification Frameworks"}</h1>
+      <p class="sub">${zh?"用本週四個框架分析鬼魂篇 Ep1-3 的三個策略關鍵時刻：傳動問題／GEAR GHOST 合作／收購構想與治理風險（15 min）":"Analyze three strategic turning points in Ghost Arc Ep1-3: the transmission discovery / GearGhost partnership / acquisition idea and governance risk — using this week's four frameworks (15 min)"}</p>
+    </div>
+    <div class="tag" style="border-color:rgba(14,116,144,.30);background:rgba(14,116,144,.08);color:var(--c1);">📺 C1 · 15 min</div>
+  </div>
+  ${timeTags("c1")}
+
+  <!-- Risk Matrix -->
+  <div class="card" style="margin-bottom:14px;">
+    <h3 class="cardTitle" style="color:var(--c1)">${zh?"互動：農機多角化的風險矩陣定位":"Interactive: Risk Matrix Placement for Ag-Machinery Diversification"}</h3>
+    <p class="sm" style="margin-bottom:10px;">${zh?"點選矩陣中的象限，代表你認為佃製作所的農機多角化落在哪個位置。想想：相關性高低 × 進入後能力整合難易度，兩個維度共同決定風險。":"For the specific opportunity — Tsukuda entering the agricultural transmission market via GearGhost — click the quadrant you think is most accurate. Dimension 1: relatedness to Tsukuda's existing capabilities (technical transferability). Dimension 2: integration difficulty (note: cooperation vs. acquisition creates vastly different integration costs). Choose first, then explain your reasoning in the box below."}</p>
+    <div class="riskWrap">
+      <div class="riskAxisY">${zh?"高相關 ↑ · 相關程度 · ↓ 低相關":"High Related ↑ · Relatedness · ↓ Low Related"}</div>
+      <div style="flex:1;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;max-width:480px;margin:14px auto 0;gap:2px;">
+            <div style="text-align:center;font-size:12px;font-weight:900;color:#991B1B;padding:4px 6px;background:rgba(220,38,38,.07);border-radius:8px 0 0 0;">
+              ${zh?"🔴 整合困難":"🔴 Hard Integration"}
+            </div>
+            <div style="text-align:center;font-size:12px;font-weight:900;color:#14532D;padding:4px 6px;background:rgba(21,128,61,.07);border-radius:0 8px 0 0;">
+              ${zh?"🟢 整合容易":"🟢 Easy Integration"}
+            </div>
+          </div>
+          <div class="riskMatrix" id="riskMatrix" style="max-width:480px;margin:0 auto;">
+          ${[
+            ["topLeft","rgba(220,38,38,.10)","🔥","#991B1B",
+              zh?"高相關 + 整合困難（收購 Gear Ghost 的情境）":"High Related + Hard Integration (Acquisition of GearGhost)",
+              zh?"閥門技術確實能直接遷移到 Gear Ghost 的傳動系統，但若選擇收購，法律訴訟風險、文化整合、財務審查全部移轉過來。傳動市場的商業模式也與火箭B2B完全不同。":"The valve technology transfers directly to GearGhost's drivetrain, but choosing acquisition means absorbing the ongoing patent lawsuit, cultural integration, and full credit scrutiny — plus agricultural commercial models differ completely from rocket B2B."],
+            ["topRight","rgba(21,128,61,.10)","✅","#14532D",
+              zh?"高相關 + 整合容易（只是技術合作供應閥門）":"High Related + Easy Integration (Simple valve supply cooperation)",
+              zh?"如果只是供應閥門零件給 Gear Ghost（合作而非收購）：技術轉移容易、不需要整合組織、法律風險也留在對方身上。這更接近 Belderbos et al. 所強調的「先保留彈性，再逐步加碼」精神。":"If only supplying valve components to GearGhost (cooperation not acquisition): tech transfers easily, no org integration needed, legal risks stay on their side. This embodies Belderbos et al.'s 'incremental small-equity' principle."],
+            ["bottomLeft","rgba(91,33,182,.10)","⚠️","#4C1D95",
+              zh?"低相關 + 整合困難":"Low Related + Hard Integration",
+              zh?"最危險：技術和市場都不同，還要付出高整合成本。典型的非相關多角化折價。":"Most dangerous: tech and market both different, plus high integration costs. Classic unrelated diversification discount."],
+            ["bottomRight","rgba(201,162,39,.10)","🤔","#7C5500",
+              zh?"低相關 + 整合容易":"Low Related + Easy Integration",
+              zh?"非相關多角化中的最佳情境：透過財務治理或管理流程創造價值（Danaher模式），不依賴資源共享。":"Best-case unrelated diversification: creates value through financial governance or management processes (Danaher model), not resource sharing."]
+          ].map(([id,bg,ico,col,title,desc])=>`<div class="riskCell${ST.riskCell===id?' active':''}" style="background:${bg};" data-risk="${id}">
+            <div class="riskCellIcon">${ico}</div>
+            <div style="font-size:12px;font-weight:900;color:${col};margin-bottom:4px;">${title}</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.4;">${desc}</div>
+            ${ST.riskCell===id?'<div class="riskTsukuda">佃</div>':''}
+          </div>`).join("")}
+        </div>
+        <div class="riskAxisX" style="max-width:480px;margin:0 auto;">
+          <span>${zh?"← 整合困難端":"← Harder to Integrate"}</span>
+          <span style="text-align:center;">${zh?"整合難易度":"Integration Difficulty"}</span>
+          <span>${zh?"整合容易端 →":"Easier to Integrate →"}</span>
+        </div>
+      </div>
+    </div>
+    ${ST.riskCell?`<div class="callout teal" style="margin-top:10px;">
+      <p class="p" style="font-size:13px;"><strong>${zh?"你的定位：":"Your placement:"}</strong> ${zh?`你把佃製作所放在了「${['topLeft','topRight','bottomLeft','bottomRight'].indexOf(ST.riskCell)>=0?['高相關＋整合困難','高相關＋整合容易','低相關＋整合困難','低相關＋整合容易'][['topLeft','topRight','bottomLeft','bottomRight'].indexOf(ST.riskCell)]:''}」象限。<br/>
+      思考：<em>你選這個位置的主要依據是什麼？是「技術相關性（閥門→傳動）」、「市場相關性（火箭B2B→農機市場）」、還是「整合方式（合作 vs. 收購）」？如果把進入方式從合作改成收購，你的位置會移動嗎？</em>`:`You placed Tsukuda in the '${['High Related + Hard Integration','High Related + Easy Integration','Low Related + Hard Integration','Low Related + Easy Integration'][['topLeft','topRight','bottomLeft','bottomRight'].indexOf(ST.riskCell)]}' quadrant.<br/>
+      Think: <em>What drives your choice — 'technical relatedness (valve → drivetrain)', 'market relatedness (rocket B2B → agricultural market)', or 'integration mode (cooperation vs. acquisition)'? If you changed the entry mode from cooperation to acquisition, would your placement shift?</em>`}
+      </p>
+    </div>`:''}
+  </div>
+
+  <!-- Scene Flipper -->
+  <div class="sceneFlipper">
+    <div class="sceneNav">
+      ${tabs.map(([t,s],i)=>`<div class="sceneTab${tab===i?' active':''}" data-scenetab="${i}" data-scene="c1">${t}</div>`).join("")}
+    </div>
+    <div class="sceneBody">
+      <div class="callout gold" style="margin-bottom:12px;">
+        <p class="p" style="font-size:14px;"><strong>${zh?"場景摘要：":"Scene Summary:"}</strong><br/>
+        ${zh?sc.summary_zh:sc.summary_en}</p>
+      </div>
+      <div>
+        <h4 style="font-weight:900;font-size:13px;color:var(--c1);margin-bottom:10px;">${zh?"💬 討論問題——請先思考，再查看下方提示：":"💬 Discussion Questions — Think first, then check the hints below:"}</h4>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          ${(zh?sc.questions_zh:sc.questions_en).map((q,i)=>`<div style="border:1.5px dashed rgba(14,116,144,.30);border-radius:12px;padding:12px;background:rgba(14,116,144,.03);">
+            <div style="font-weight:900;font-size:13px;color:var(--c1);margin-bottom:4px;">Q${i+1}</div>
+            <p class="p" style="font-size:14px;">${q}</p>
+            <button class="gameBtn" style="font-size:12px;margin-top:8px;padding:5px 12px;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block';this.textContent=this.textContent.includes('顯示')||this.textContent.includes('Show')?'${zh?"隱藏提示":"Hide Hints"}':'${zh?"顯示提示":"Show Hints"}';">${zh?"顯示提示":"Show Hints"}</button>
+            <div style="display:none;margin-top:8px;padding:10px;background:rgba(201,162,39,.06);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;font-size:13px;line-height:1.6;">${[
+              zh?[
+                "這個問題沒有唯一答案。垂直介入是「提升個別業務績效」（例如改善閥門品質以贏回帝國重工的訂單）；水平協同是「業務間的資源共享或綜效」（例如把閥門技術遷移到農機傳動）。佃在田間的發現可以同時是兩種：它來自既有能力（vertical），但指向新業務（horizontal synergy）。注意：Anand & Collis 警告過度關注「進不進新市場」（改變 w）而忽略「如何讓既有業務更好」（改變 r）的陷阱。在 Ep1 中，佃是先解決了現有事業的問題（新型火箭閥門），才去接觸 Gear Ghost——這個順序本身就有策略意義。",
+                "Wiersema & Beck 指出，相關多角化的核心在於「資源相關性」——技術流動模式。合作（提供零件）讓佃保留彈性，不需要承擔 Gear Ghost 的法律風險。但若收購，則整個 15 億元訴訟風險轉移過來，加上要整合兩家公司的文化、人才、財務。這讓「相關性高」的技術優勢，可能被「整合成本」吃掉。Anand & Collis 會提醒：收購後的組織設計（是獨立子公司還是整合進佃製作所？）會決定這個「相關性」能否真正創造價值。",
+                "GearGhost 的定位直接影響 Wiersema & Beck 框架的應用層次：若視為「客戶」，只需評估技術遷移的可行性；若視為「合作夥伴」，還需評估共享資源的組合是否符合相關多角化；若視為「收購對象」，則須從 Anand & Collis 的視角評估佃製作所在策略光譜上的位置是否允許整合一家新事業。Belderbos et al. 會特別建議：在確定定位之前，先以「創造選擇權」的心態進入，保留升級定位的彈性——這正是為什麼「先合作供應閥門」比「直接收購」更能保存策略靈活性。"
+              ]:[
+                "Portfolio Fixation's core: firm leaders' attention is overly concentrated on 'whether to enter a new market' (changing w), rather than 'how to improve existing businesses' (changing r). In the Ep1 scene, all conversation revolves around 'whether to enter ag-machinery' — no one asks 'have we achieved our quality targets for existing rocket contracts?'",
+                "Wiersema & Beck focus on resource relatedness — technology flow patterns. Simple cooperation (supplying valve components) preserves Tsukuda's flexibility without absorbing GearGhost's legal liabilities. But acquisition transfers the entire 15B yen lawsuit risk, plus the cost of integrating two companies' cultures, people, and finances. This means the 'high relatedness' technical advantage could be eaten up by integration costs. Anand & Collis would ask: after acquisition, what organizational structure works? Independent subsidiary vs. full integration — this determines whether the technical relatedness actually creates value.",
+                "The relationship type directly determines which analytical lens applies. If GearGhost is a 'customer,' only technical transferability matters. If a 'partner,' Wiersema & Beck's resource relatedness must be assessed at the shared-resource level. If an 'acquisition target,' Anand & Collis's strategy continuum position becomes critical — Tsukuda would need to move rightward on the continuum, requiring structural changes it may not be ready for. Belderbos et al. would advise: before committing to any one relationship type, enter as a 'growth option creation' — cooperation first, with explicit upgrade conditions — precisely to preserve the flexibility to shift relationship types as information accumulates."
+              ],
+              zh?[
+                "「精度 vs. 耐用性」對應到 Wiersema & Beck 框架中的「技術相關性」維度。精度屬於「製程知識的遷移」，而耐用性屬於「應用情境知識的建立」——兩者所需的工程師能力和知識庫不完全重疊，因此需要額外的學習投資。",
+                "帝國重工的可能進入是個「競爭性信號」——它既增加了先進入的時間壓力（first-mover advantage），也增加了如果進入錯誤而帝國重工也進入的市場競爭風險。根據 Anand & Collis，這種訊號往往讓企業陷入「組合固著」的反應式思維，而不是回到根本問題：「我們真的有競爭優勢嗎？」",
+                "Belderbos et al. 的漸進式投資邏輯：佃製作所應該把農機進入設計成一個「創造選擇權」而非「執行選擇權」的動作——即：以小股權合資（而非全資子公司）+小規模試驗訂單的方式進入，保留根據市場反饋決定是否擴大的靈活性。"
+              ]:[
+                "'Precision vs. durability' corresponds to the 'technological relatedness' dimension in Wiersema & Beck's framework. Precision belongs to 'transfer of process knowledge,' while durability belongs to 'development of application context knowledge' — the engineering capabilities and knowledge bases required don't fully overlap, requiring additional learning investment.",
+                "Teikoku's potential entry is a 'competitive signal' — it both increases time pressure for first-mover advantage AND increases the market competition risk if Tsukuda enters and Teikoku follows. Per Anand & Collis, such signals often push firms into 'portfolio fixation' reactive thinking, rather than returning to the fundamental question: 'Do we actually have a competitive advantage?'",
+                "Belderbos et al.'s incremental investment logic: Tsukuda should design the ag-machinery entry as a 'create an option' action rather than 'exercise an option' — i.e., enter via small-equity JV (not wholly owned) + small-scale trial orders, preserving flexibility to scale up based on market feedback."
+              ],
+              zh?[
+                "Anand & Collis 的「垂直介入」是指「提升個別業務績效（改善 r）」，「水平共享」是指「業務間共用資源創造協同效益」。殿村的最後一刻救場更接近「垂直介入」的層次——他在保護既有業務（與帝國重工的合作關係）的績效，而非在業務間轉移知識或能力。但從更廣泛的視角看，殿村具備農業財務知識、又能應對公司治理審查，這種「跨情境能力」本身是 Anand & Collis 所說的「總部附加價值」——讓組織有能力在不同挑戰情境中靈活調度人才。",
+                "Pedersen et al. 的核心論點：多角化程度（M）不是決策變數，而是企業追求最佳利用其 FSA（企業特定優勢）的「結果」。佃決定收購 GearGhost，不是在「決定多角化幾%」——他在決定「要不要救一家他相信的技術夥伴」。這正是 Hennart（2011）的觀點。而「內通者」的揭露帶出 Pedersen 的微觀基礎視角：收購成功與否取決於「信任與資訊完整性」等中間過程，而不只是財務分析。Pedersen et al. 會說：要研究的不是「佃多角化了多少」，而是「內通者如何破壞了佃追求 FSA 利用的組織能力」。",
+                "Belderbos et al. 的核心發現：在「高不確定性」市場中，①限制股份比例（合資 > 全資）②限制投資規模（小步驟）——這兩個條件的組合才能最大化成長選擇權價值。佃的「收購」決策是一次性全額承擔（高股份 + 大規模），與 Belderbos 的建議完全相反。即便在「救援」情境下，也可以設計為「分階段條件式收購」：先以 20-30% 少數股份入股，設立里程碑（例如：訴訟和解 + 年營收超過 X 億）作為升級為全面收購的觸發條件。這樣既支持 GearGhost，又保留了策略靈活性。"
+              ]:[
+                "Anand & Collis's 'vertical intervention' means 'improving individual business performance (improve r),' while 'horizontal sharing' means 'creating synergies by sharing resources across businesses.' Tonomura's last-minute rescue is closer to 'vertical intervention' — he was protecting the performance of an existing business relationship (the Teikoku partnership), not transferring capabilities between businesses. Viewed more broadly, however, Tonomura's combined agricultural finance knowledge AND corporate governance audit capability represents 'HQ-level value-add' (Anand & Collis) — the organizational ability to deploy flexible talent across different challenge contexts.",
+                "Pedersen et al.'s core point: diversification level (M) is NOT a decision variable — it is the OUTCOME of decisions about how best to exploit FSA. Tsukuda is not 'deciding to diversify by X%' — he is deciding 'whether to rescue a technology partner he believes in.' This is exactly Hennart's (2011) argument. The informant revelation adds Pedersen's micro-foundations lens: acquisition success depends on 'trust and information integrity' as intermediate processes — not financial analysis alone. Pedersen et al. would say: what matters is not 'how much Tsukuda diversified' but 'how the informant undermined the organizational capabilities needed to exploit Tsukuda's FSA through GearGhost.'",
+                "Belderbos et al.'s core finding: in HIGH-uncertainty markets, ①limiting equity stake (JV > wholly owned) + ②limiting investment size (small steps) — this combination maximizes growth option value. Tsukuda's acquisition decision is a full, one-time commitment (high equity + large scale), the opposite of what Belderbos recommends. Even in a 'rescue' scenario, the acquisition could be structured as a 'staged conditional acquisition': first take a 20-30% minority stake, then set milestone triggers (e.g., lawsuit settlement + annual revenue exceeds ¥X billion) as the upgrade conditions for full acquisition. This supports GearGhost while preserving strategic flexibility."
+              ]
+            ][tab][i]}</div>
+          </div>`).join("")}
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ════════════════════════════════════════════
+//  SECTION S1 — Strategy Memo Workshop
+// ════════════════════════════════════════════
+function viewS1(){
+  const zh=ST.lang==="zh";
+  const layers=[
+    {
+      color:"#7B2F00",
+      label_zh:"第一層：定義「相關性」（Wiersema & Beck）",
+      label_en:"Layer 1: Define 'Relatedness' (Wiersema & Beck)",
+      prompt_zh:`針對「佃製作所透過 GEAR GHOST 進入農機傳動系統市場」，請分析：
+① 從「SIC 代碼測量」角度：農機傳動 vs. 火箭閥門，這兩個產業在 SIC 分類上差異有多大？
+② 從「資源相關性（技術流動）」角度：佃製作所的閥門技術、精密加工能力，有多少比例可以直接用於農機傳動系統？哪些不能？
+③ 島津被 153 個零件的設計打動，這個場景說明了哪種層次的相關性？
+（記住：Wiersema & Beck 提醒，真正的相關性要看技術流動模式，不只是產業分類。）`,
+      prompt_en:`Analyze what type of diversification Tsukuda's ag-machinery move represents. Please distinguish:
+① From the 'SIC code measurement' perspective — how related are ag-machinery vs. rocket/medical valves?
+② From the 'resource relatedness (technology flow patterns)' perspective — can core manufacturing capabilities truly transfer?
+③ Which framework dimension do you think is most appropriate for assessing relatedness in this case, and why?
+(Think through it first — explain your reasoning, not just your conclusion)`,
+      key:"memo_1"
+    },
+    {
+      color:"#1A4A8B",
+      label_zh:"第二層：策略光譜定位與組織含義（Anand & Collis）",
+      label_en:"Layer 2: Strategy Continuum Position & Organizational Implications (Anand & Collis)",
+      prompt_zh:`針對「佃製作所考慮收購 GEAR GHOST」，使用 Anand & Collis 框架分析：
+① 佃製作所目前（火箭+閥門）在策略光譜上大約在哪個位置？它用的是哪種增加企業整體價值的方式（垂直/水平/組合調整/降低總部費用）？
+② 若收購 Gear Ghost，佃製作所在連續體上的位置應往哪個方向移動？這對組織架構和管理流程有什麼具體含義？
+③ 合作（只供應閥門）vs. 收購（把 Gear Ghost 納入旗下）——哪種方式更符合 Anand & Collis 對「策略位置與管理方式一致性」的要求？`,
+      prompt_en:`On Anand & Collis's strategy continuum:
+① Where is Tsukuda (post-S1, rocket + medical) currently positioned? What evidence supports your judgment?
+② If Tsukuda enters agricultural machinery, in which direction should the position shift? What specific organizational design (structure/incentives/HQ size) implications does this have?
+③ Anand & Collis's most feared 'mix-and-match trap' — what is the most likely mix-and-match mistake Tsukuda would make in its ag-machinery diversification?`,
+      key:"memo_2"
+    },
+    {
+      color:"#5B21B6",
+      label_zh:"第三層：風險評估——多角化增加還是降低整體策略風險？",
+      label_en:"Layer 3: Risk Assessment — Does Diversification Reduce or Increase Overall Strategic Risk?",
+      prompt_zh:`使用 Pedersen et al. + Belderbos et al. 框架：
+① Gear Ghost 正面臨 15 億元的專利訴訟，這讓農機傳動領域的「市場不確定性」非常高。用 Belderbos et al. 的成長選擇權邏輯，在這種高不確定性情境下，「合作供應閥門（保留彈性）」vs.「直接收購（全力押注）」，哪種方式創造的成長選擇權價值更高？
+② Pedersen et al. 提醒：多角化程度本身不是「決策變數」，而是其他決策的結果。佃的問題根本不是「多角化多少」，而是什麼？
+③ 你的判斷：若佃選擇收購而非合作，整體策略風險是上升還是下降？為什麼？`,
+      prompt_en:`Integrate frameworks from Pedersen et al. and Belderbos et al.:
+① Using Pedersen et al.'s logic: Why can't we directly say 'diversification → reduces risk' or 'diversification → increases risk'?
+② Using Belderbos et al.'s logic: Under what conditions can Tsukuda's ag-machinery diversification create growth option value?
+③ Your judgment: Does President Tsukuda's 'trial small-batch supply' decision increase or decrease overall strategic risk? Why?`,
+      key:"memo_3"
+    },
+    {
+      color:"#065F46",
+      label_zh:"第四層：整合建議",
+      label_en:"Layer 4: Integrated Recommendation",
+      prompt_zh:`綜合以上三層分析，給佃航平一個具體建議：
+① 你支持「合作供應閥門」、「以少數股份投資 Gear Ghost」，還是「直接收購」？（必須明確站位，不接受「視情況而定」）
+② 說明你建議的理由：哪些資源相關性支持你的建議？進入方式如何對應到你在風險矩陣中的定位？
+③ 你的「早期檢核點」是什麼？——在什麼條件下，你會建議升級（從合作到投資，或從投資到收購）？又在什麼條件下，你會建議退出？
+（字數目標：150-250字）`,
+      prompt_en:`Synthesizing the three frameworks above, give President Tsukuda a specific strategic recommendation:
+① Do you support or oppose entering the agricultural machinery market? (Must take a clear stance)
+② If supporting entry: what entry mode do you recommend (incremental/full commitment), how to adjust organizational design post-entry, and how to design 'early checkpoints' to decide whether to continue investing?
+③ If opposing entry: how to leverage the ag-machinery opportunities already explored (e.g., technology licensing, collaborative development) to create partial value without full diversification?
+(Target: 150-250 words)`,
+      key:"memo_4"
+    }
+  ];
+  return `
+  <div class="sectionHead">
+    <div>
+      <h1 class="h1" style="color:var(--s1)">${zh?"S1｜策略備忘錄工作坊":"S1 | Strategy Memo Workshop"}</h1>
+      <p class="sub">${zh?"分層架構引導你逐步建構論點，讓每一層的分析都有明確的框架依據（10 min）":"Layered scaffolding guides you to build arguments step by step, ensuring each layer has a clear framework basis (10 min)"}</p>
+    </div>
+    <div class="tag" style="border-color:rgba(6,95,70,.30);background:rgba(6,95,70,.08);color:var(--s1);">📝 S1 · 10 min</div>
+  </div>
+  ${timeTags("s1")}
+
+  <div class="callout" style="margin-bottom:14px;">
+    <p class="p"><strong>${zh?"備忘錄問題：":"Memo Question:"}</strong><br/>
+    <em>"${zh?"Evaluate the 'Relatedness' of the agricultural machinery market to Tsukuda's existing portfolio. Does this diversification reduce or increase the firm's overall strategic risk?":"Evaluate the 'Relatedness' of the agricultural machinery market to Tsukuda's existing portfolio. Does this diversification reduce or increase the firm's overall strategic risk?"}"</em></p>
+  </div>
+
+  <div class="callout gold" style="margin-bottom:18px;">
+    <p class="p" style="font-size:13px;"><strong>${zh?"使用提示：":"Usage Tips:"}</strong><br/>
+    ${zh?`① 每一層<em>先思考再輸入</em>——不要直接複製上課內容<br/>
+    ② 各層的框架標籤是提示，不是限制——你可以跨框架連結<br/>
+    ③ 第四層的整合建議才是最終成品，前三層是論證基礎<br/>
+    ④ 這些輸入框的內容<em>只存在你的瀏覽器</em>——不會上傳，是給你自己練習用的`:
+    `① <em>Think before typing</em> in each layer — don't just copy lecture content<br/>
+    ② Framework labels are prompts, not constraints — you can connect across frameworks<br/>
+    ③ Layer 4's integrated recommendation is the final product; the first three layers are the argumentative foundation<br/>
+    ④ Content in these text boxes <em>only lives in your browser</em> — it's not uploaded; it's for your own practice`}</p>
+  </div>
+
+  <div class="memoScaffold">
+    ${layers.map(l=>{
+      const val=ST.ws[l.key]||"";
+      return `<div class="memoLayer" style="border-left-color:${l.color};">
+        <div class="memoLayerLabel" style="color:${l.color};">${zh?l.label_zh:l.label_en}</div>
+        <div class="memoPrompt">${zh?l.prompt_zh:l.prompt_en}</div>
+        <textarea class="memoField${val?' has-content':''}" placeholder="${zh?"在此輸入你的分析……":"Enter your analysis here…"}" data-wskey="${l.key}" rows="5">${val}</textarea>
+        <div class="memoWordCount">${val?val.trim().split(/\s+/).length:0} ${zh?"字":"words"}</div>
+      </div>`;
+    }).join("")}
+  </div>
+
+  <div class="gameBtnRow" style="margin-top:14px;">
+    <button class="gameBtn primary" id="memoExport">${zh?"複製備忘錄草稿":"Copy Memo Draft"}</button>
+    <button class="gameBtn" id="memoHints">${zh?"查看評分提示":"View Scoring Hints"}</button>
+  </div>
+  <div class="gameReveal" id="memoHintsBox">
+    <strong>${zh?"策略備忘錄評分焦點提示：":"Strategy Memo Scoring Hints:"}</strong><br/><br/>
+    ${zh?`<strong>① 分析深度（層次1）：</strong>有沒有區分 SIC 測量的相關性 vs. 資源相關性？僅說「農機和火箭不同」是表面分析；需要說明為什麼「精密加工知識」算是（或不算）資源相關性。<br/><br/>
+    <strong>② 框架一致性（層次2）：</strong>連續體定位是否與後續的組織設計建議一致？若說「佃製作所是連續體右端（高相關）」，就必須建議整合型組織架構；若說「左端（非相關）」，就必須建議獨立事業部架構。<br/><br/>
+    <strong>③ 風險論證的細緻度（層次3）：</strong>是否避免了「多角化=降低風險」的直覺式論斷？最強的論點是：在特定條件（高不確定性+漸進式投資+與不確定性對齊）下，農機多角化<em>可以</em>降低風險；反之則增加。<br/><br/>
+    <strong>④ 建議的可執行性（層次4）：</strong>建議是否具體可行？「繼續觀察」不算建議；「以合資方式以 30% 股權進入，設定 12 個月後的訂單量里程碑作為繼續投入的條件」才是有操作性的建議。`:`<strong>① Depth of analysis (Layer 1):</strong> Does it distinguish between SIC-based relatedness vs. resource relatedness? Simply saying 'ag-machinery and rockets are different' is surface analysis; need to explain why 'precision machining knowledge' does (or doesn't) count as resource relatedness.<br/><br/>
+    <strong>② Framework consistency (Layer 2):</strong> Does the continuum positioning align with subsequent organizational design recommendations? If claiming 'Tsukuda is at the right end (highly related),' must recommend an integrated organizational structure; if 'left end (unrelated),' must recommend independent business unit structure.<br/><br/>
+    <strong>③ Nuance of risk argument (Layer 3):</strong> Avoid the intuitive claim 'diversification = risk reduction'? The strongest argument is: under specific conditions (high uncertainty + incremental investment + alignment with uncertainty), ag-machinery diversification <em>can</em> reduce risk; otherwise it increases risk.<br/><br/>
+    <strong>④ Actionability of recommendations (Layer 4):</strong> Are recommendations specific and actionable? 'Continue observing' is not a recommendation; 'enter via JV with 30% equity, setting a 12-month order volume milestone as the condition for continued investment' is an operational recommendation.`}
+  </div>`;
+}
+
+// ════════════════════════════════════════════
+//  STUDENT WORKSHEET
+// ════════════════════════════════════════════
+function viewStudent(){
+  const zh=ST.lang==="zh";
+  return `,
+  <div class="sectionHead">
+    <div>
+      <h1 class="h1">${zh?"W7 學生工作表":"W7 Student Worksheet"}</h1>
+      <p class="sub">${zh?"課後整理與自我評估，幫助你鞏固對四個核心框架的理解":"Post-class consolidation and self-assessment to solidify understanding of the four core frameworks"}</p>
+    </div>
+    <div class="tag">📋 Worksheet</div>
+  </div>
+
+  <div class="wsCard">
+    <div class="wsLabel">${zh?"📦 W&B 概念確認：相關性的三個維度":"📦 W&B Concept Check: Three Dimensions of Relatedness"}</div>
+    <p class="sm" style="margin-bottom:10px;">${zh?"用自己的話說明：技術相關性 (Technological)、市場相關性 (Market)、資源相關性 (Resource Relatedness) 三者的區別，並各舉一個佃製作所農機多角化的例子。":"In your own words, explain the differences between technological relatedness, market relatedness, and resource relatedness. Give one example from Tsukuda's ag-machinery diversification for each."}</p>
+    <textarea class="wsTextarea" placeholder="${zh?"在此回答……":"Answer here…"}" data-wskey="ws_wb" onchange="wsChange(this)">${ST.ws['ws_wb']||""}</textarea>
+  </div>
+
+  <div class="wsCard">
+    <div class="wsLabel">${zh?"🗺️ A&C 應用：五個診斷問題":"🗺️ A&C Application: Five Diagnostic Questions"}</div>
+    <p class="sm" style="margin-bottom:10px;">${zh?"Anand & Collis 提出設計多事業策略的五個問題。請選擇其中兩個，分別用一段話回答佃製作所的情況：":"Anand & Collis propose five questions for designing multibusiness strategy. Choose two and answer each with a paragraph about Tsukuda:"}</p>
+    <p class="sm" style="margin-bottom:8px;"><em>${zh?"① 企業願景？② 正確的組合與組織架構？③ 正確的流程？④ 正確的匯報關係？⑤ 總部規模？":"① Corporate vision? ② Right portfolio and structure? ③ Right processes? ④ Right reporting relationships? ⑤ HQ size?"}</em></p>
+    <textarea class="wsTextarea" placeholder="${zh?"選擇兩個問題作答……":"Choose two questions to answer…"}" data-wskey="ws_ac" onchange="wsChange(this)">${ST.ws['ws_ac']||""}</textarea>
+  </div>
+
+  <div class="wsCard">
+    <div class="wsLabel">${zh?"🌐 Pedersen 反思：M-P 關係的死局":"🌐 Pedersen Reflection: The M-P Deadlock"}</div>
+    <p class="sm" style="margin-bottom:10px;">${zh?"如果你是 Pedersen et al. 建議的「微觀基礎」研究者，你會設計一個什麼樣的研究來真正理解佃製作所農機多角化的績效效果？（可以是質性或量化研究設計）":"If you were a 'micro-foundations approach' researcher as Pedersen et al. suggest, what study would you design to truly understand Tsukuda's ag-machinery diversification performance effects? (Qualitative or quantitative design welcome)"}</p>
+    <textarea class="wsTextarea" placeholder="${zh?"研究設計描述……":"Research design description…"}" data-wskey="ws_ped" onchange="wsChange(this)">${ST.ws['ws_ped']||""}</textarea>
+  </div>
+
+  <div class="wsCard">
+    <div class="wsLabel">${zh?"⚡ Belderbos 應用：成長選擇權設計":"⚡ Belderbos Application: Growth Option Design"}</div>
+    <p class="sm" style="margin-bottom:10px;">${zh?"假設你是佃製作所的策略顧問，根據 Belderbos et al. 的框架，你會如何設計農機多角化的「漸進式投資策略」？請說明：①初始股權比例建議、②初始投資規模上限、③「繼續投入」的觸發條件，以及如何將這些設計與農機市場的不確定性對齊。":"Assume you're Tsukuda's strategic consultant. Based on Belderbos et al.'s framework, how would you design an 'incremental investment strategy' for ag-machinery diversification? Specify: ①recommended initial equity stake, ②initial investment size ceiling, ③trigger conditions for 'continue investing,' and how to align these with ag-machinery market uncertainty."}</p>
+    <textarea class="wsTextarea" placeholder="${zh?"漸進式投資策略設計……":"Incremental investment strategy design…"}" data-wskey="ws_beld" onchange="wsChange(this)">${ST.ws['ws_beld']||""}</textarea>
+  </div>
+
+  <div class="callout green" style="margin-top:4px;">
+    <p class="p" style="font-size:13px;">${zh?"✅ 本週所有工作表答案已<em>自動存入瀏覽器</em>，重新整理頁面不會遺失。若要帶走，請手動複製。":"✅ All worksheet answers are <em>automatically saved in your browser</em> — refreshing the page won't lose them. To take them elsewhere, copy manually."}</p>
+  </div>`;
+}
+
+function wsChange(el){
+  ST.ws[el.dataset.wskey]=el.value; save();
+  const wc=el.nextElementSibling;
+  if(wc&&wc.classList.contains('memoWordCount')) wc.textContent=el.value.trim()?el.value.trim().split(/\s+/).length+' '+(ST.lang==="zh"?"字":"words"):'0 '+(ST.lang==="zh"?"字":"words");
+}
+
+// ════════════════════════════════════════════
+//  RENDER & EVENT BINDING
+// ════════════════════════════════════════════
+function render(){
+  const views={s0:viewS0,t1:viewT1,t2:viewT2,t3:viewT3,c1:viewC1,s1:viewS1,student:viewStudent};
+  const fn=views[ST.view]||viewS0;
+  content.innerHTML=fn();
+
+  // Nav active state
+  document.querySelectorAll(".navItem").forEach(b=>{
+    b.classList.toggle("active",b.dataset.view===ST.view);
+  });
+
+  // Poll votes
+  document.querySelectorAll("[data-poll]").forEach(btn=>{
+    btn.addEventListener("click",function(){
+      vote(this.dataset.poll,this.dataset.opt);
+      render();
+    });
+  });
+
+  // Quiz
+  document.querySelectorAll("[data-quiz]").forEach(btn=>{
+    btn.addEventListener("click",function(){
+      if(ST.quizDone[this.dataset.quiz])return;
+      ST.quizDone[this.dataset.quiz]=parseInt(this.dataset.idx)+1;
+      save(); render();
+    });
+  });
+
+  // Classify drag-drop
+  setupClassify();
+
+  // Continuum slider
+  const contBar=document.getElementById("contBar");
+  const contMarker=document.getElementById("contMarker");
+  if(contBar&&contMarker){
+    let dragging=false;
+    contMarker.addEventListener("mousedown",e=>{dragging=true;e.preventDefault();});
+    document.addEventListener("mousemove",e=>{
+      if(!dragging)return;
+      const r=contBar.getBoundingClientRect();
+      const p=Math.max(0,Math.min(100,((e.clientX-r.left)/r.width)*100));
+      ST.continuumPos=Math.round(p);
+      contMarker.style.left=ST.continuumPos+"%";
+      save();
+      // Update feedback
+      const fb=document.getElementById("contFeedback");
+      if(fb){const pos=ST.continuumPos;const zh=ST.lang==="zh";
+        fb.innerHTML=zh?`<strong>目前位置（${pos}%）：</strong> ${pos<20?'完全不相關端——主要透過財務治理創造價值，各業務幾乎獨立':pos<40?'偏不相關——存在一些流程或治理上的協同，但業務間資源分享有限':pos<60?'中段——有顯著的管理流程共享，但產品/市場協同仍有限':pos<80?'偏相關——業務間有實質的資源共享':'高度相關——共享品牌、通路、供應鏈，總部深入參與業務運作'}。<br/><em>思考：進入農業機械後，這個位置應如何調整？組織設計需要哪些對應改變？</em>`
+        :`<strong>Current position (${pos}%):</strong> ${pos<20?'Highly unrelated — value created primarily through financial governance; businesses nearly independent':pos<40?'Leaning unrelated — some process/governance synergies, limited resource sharing':pos<60?'Mid-continuum — significant management process sharing, but limited product/market synergies':pos<80?'Leaning related — substantial resource sharing across businesses':'Highly related — shared brand, channels, supply chain; HQ deeply involved in business operations'}.<br/><em>Think: How should this position adjust after entering agricultural machinery?</em>`;
+      }
+    });
+    document.addEventListener("mouseup",()=>{dragging=false;});
+    // touch
+    contMarker.addEventListener("touchstart",e=>{dragging=true;e.preventDefault();},{passive:false});
+    document.addEventListener("touchmove",e=>{
+      if(!dragging)return;
+      const r=contBar.getBoundingClientRect();
+      const p=Math.max(0,Math.min(100,((e.touches[0].clientX-r.left)/r.width)*100));
+      ST.continuumPos=Math.round(p);
+      contMarker.style.left=ST.continuumPos+"%";
+      save();
+    },{passive:true});
+    document.addEventListener("touchend",()=>{dragging=false;});
+  }
+
+  // Continuum reveal
+  const contRevBtn=document.getElementById("contRevealBtn");
+  if(contRevBtn) contRevBtn.addEventListener("click",()=>{
+    document.getElementById("contReveal").classList.toggle("visible");
+  });
+
+  // M-P Shape picker
+  document.querySelectorAll("[data-mpshape]").forEach(el=>{
+    el.addEventListener("click",function(){
+      ST.mpChoice=this.dataset.mpshape; save(); render();
+    });
+  });
+
+  // Risk matrix
+  document.querySelectorAll("[data-risk]").forEach(el=>{
+    el.addEventListener("click",function(){
+      ST.riskCell=this.dataset.risk; save(); render();
+    });
+  });
+
+  // Scene tabs
+  document.querySelectorAll("[data-scenetab]").forEach(el=>{
+    el.addEventListener("click",function(){
+      if(!ST.sceneTabs) ST.sceneTabs={};
+      ST.sceneTabs[this.dataset.scene]=parseInt(this.dataset.scenetab);
+      save(); render();
+    });
+  });
+
+  // Classify reveal / reset
+  const cr=document.getElementById("classifyReveal");
+  if(cr) cr.addEventListener("click",()=>{document.getElementById("classifyRevealBox").classList.toggle("visible");});
+  const crr=document.getElementById("classifyReset");
+  if(crr) crr.addEventListener("click",()=>{
+    const keys=Object.keys(ST.classifyDone).filter(k=>k.startsWith("t1_"));
+    keys.forEach(k=>delete ST.classifyDone[k]);
+    save(); render();
+  });
+
+  // Memo hints
+  const mh=document.getElementById("memoHints");
+  if(mh) mh.addEventListener("click",()=>{document.getElementById("memoHintsBox").classList.toggle("visible");});
+
+  // Memo export
+  const me=document.getElementById("memoExport");
+  if(me) me.addEventListener("click",()=>{
+    const text=["memo_1","memo_2","memo_3","memo_4"].map((k,i)=>`=== Layer ${i+1} ===\n${ST.ws[k]||"(empty)"}`).join("\n\n");
+    navigator.clipboard.writeText(text).then(()=>showToast("✅ Copied!")).catch(()=>showToast("Please copy manually"));
+  });
+
+  // Worksheet textareas
+  document.querySelectorAll("[data-wskey]").forEach(el=>{
+    el.addEventListener("input",function(){wsChange(this);});
+  });
+
+  // Nav clicks
+  document.querySelectorAll("[data-view]").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      ST.view=btn.dataset.view; save(); render();
+      content.scrollTop=0;
+    });
+  });
+}
+
+function setupClassify(){
+  const bank=document.getElementById("chipBank");
+  const cols=document.querySelectorAll("[data-cat]");
+  if(!bank) return;
+  // Drag events on chips in bank
+  bank.querySelectorAll("[data-chip]").forEach(chip=>{
+    chip.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/plain",chip.dataset.chip);chip.classList.add("dragging");});
+    chip.addEventListener("dragend",()=>chip.classList.remove("dragging"));
+  });
+  cols.forEach(col=>{
+    col.addEventListener("dragover",e=>{e.preventDefault();col.classList.add("over");});
+    col.addEventListener("dragleave",()=>col.classList.remove("over"));
+    col.addEventListener("drop",e=>{
+      e.preventDefault();col.classList.remove("over");
+      const cid=e.dataTransfer.getData("text/plain");
+      ST.classifyDone["t1_"+cid]=col.dataset.cat;
+      save(); render();
+    });
+  });
+}
+
+// Keyboard nav
+document.addEventListener("keydown",e=>{
+  if(e.target.tagName==="TEXTAREA"||e.target.tagName==="INPUT") return;
+  const i=VIEW_ORDER.indexOf(ST.view);
+  if(e.key==="ArrowRight"&&i<VIEW_ORDER.length-1){ST.view=VIEW_ORDER[i+1];save();render();content.scrollTop=0;}
+  if(e.key==="ArrowLeft"&&i>0){ST.view=VIEW_ORDER[i-1];save();render();content.scrollTop=0;}
+  if(e.key==="l"||e.key==="L"){ST.lang=ST.lang==="zh"?"en":"zh";save();render();}
+  if(e.key==="p"||e.key==="P"){ST.presenter=!ST.presenter;document.body.classList.toggle("presenter",ST.presenter);save();}
+  if(e.key==="r"||e.key==="R"){if(confirm("Reset all state?")){localStorage.removeItem(STORE);ST={...DEF};render();}}
+});
+
+// Control buttons
+document.getElementById("btnLang").addEventListener("click",()=>{ST.lang=ST.lang==="zh"?"en":"zh";save();render();});
+document.getElementById("btnPresenter").addEventListener("click",()=>{ST.presenter=!ST.presenter;document.body.classList.toggle("presenter",ST.presenter);save();showToast(ST.presenter?"投影模式 ON":"投影模式 OFF");});
+document.getElementById("btnReset").addEventListener("click",()=>{if(confirm("Reset all state?")){localStorage.removeItem(STORE);ST={...DEF};render();}});
+document.getElementById("btnStudent").addEventListener("click",()=>{ST.view="student";save();render();content.scrollTop=0;});
+document.getElementById("btnHelp").addEventListener("click",()=>showToast("⬅ ➡ 切換段落 | L 語言 | P 投影 | R 重置"));
+
+// Initial render
+render();
+</script>
+</body>
+</html>
